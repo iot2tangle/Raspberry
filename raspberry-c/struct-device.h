@@ -20,7 +20,7 @@ struct device {
    const char *s_name[30];    /* Sensors Names */
    bool isConnected[12];
 
-   int interv; 
+   long interv; 
    
    char json[1023];
  

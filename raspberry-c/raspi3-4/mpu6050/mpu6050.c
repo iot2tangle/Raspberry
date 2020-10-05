@@ -27,7 +27,7 @@ bool check_mpu6050()
     int id_mpu = (uint8_t)wiringPiI2CReadReg8(fd_mpu, MPU_ID);
     if(id_mpu == 255) 
     {
-		printf("\n- MPU6050 not detected\n");
+		printf("     - MPU6050 not detected (Accelerometer, Gyroscope sensor)\n");
 		return false;
 	}
     else

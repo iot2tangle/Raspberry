@@ -5,10 +5,11 @@
 
 void config(struct device *);
 void connectNetwork(struct device *);
-void initPeripherals(); 
-void getData(struct device *);
+void initPeripherals(long *); 
+void getData(struct device *,long *);
 void generateJson(struct device *);
 bool sendtoEndpoint(struct device *);
-void t_delay(int); 
+void t_delay(long, long); 
+long take_time(); 
 
 #endif

@@ -2,7 +2,9 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h> 
+
 #include <unistd.h>
+
 #include "struct-device.h"
 #include "config.h"
 #include "raspi3-4/http-socket/http-socket.h"
@@ -62,10 +64,11 @@ void config(struct device *z)
 
 }
 
-void initPeripherals() 
+void initPeripherals(long* c) 
 {
+	*c = 0;		// Init counter
 	//if RaspberryPi
-	printf("\n  ----  Raspberry Pi 3/4  -- IOT2TANGLE  --  \n\n");
+	printf("\n				----  Raspberry Pi 3/4  -- IOT2TANGLE  --  \n\n");		// ESTO VA EN LOS ESPECIFICOS DE RASPBERRY
 
 	//initGPIO();
 
@@ -90,10 +93,13 @@ void connectNetwork(struct device *z)
 
 
 
-void getData(struct device *z)
+void getData(struct device *z, long *c)
 {
 	int i;
-
+	
+	printf ("\n\nData collect - %ld\n   Sensors Detection:\n", ++(*c));		// ESTO VA EN LOS ESPECIFICOS DE RASPBERRY
+	
+	
 	/* GET DATA INTERNAL TEMPERATURE */
 	strcpy(z->d[0], get_internal_temp());
 
@@ -138,7 +144,7 @@ void generateJson(struct device *z)
 
 	int i;
 
-	strcpy(z->json, "{\"xdk2mam\":[");
+	strcpy(z->json, "{\"iot2tangle\":[");
 
 	strcat(z->json, "{\"sensor\":\"Internal\",\"data\":[");
 	for (i=0;i<1;i++)
@@ -223,8 +229,7 @@ void generateJson(struct device *z)
 
 bool sendtoEndpoint(struct device *z)
 {
-	
-	bool b_socket = socket_sender(z->ep, z->ep_port, z->json);
+	bool b_socket = socket_sender(z->ep, z->ep_port, z->json, z->interv);
 	if (b_socket)
 		printf(" ");	// Blink in green LED;
 	else
@@ -234,9 +239,14 @@ bool sendtoEndpoint(struct device *z)
 }
 
 
-void t_delay(int d) 
+void t_delay(long d, long l) 
 {  
-    sleep(d);
+    usleep( (d - l) * 1000000 );	/* Time set by user  minus  loss time by operation */ 
 }
 
-
+long take_time() 
+{  
+   time_t t;
+   time(&t);
+   return t;
+}

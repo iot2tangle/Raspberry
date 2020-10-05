@@ -14,7 +14,7 @@ char* s;
 
 bool check_bh1750()
 {
-	printf("\n- BH1750 not detected\n");
+	printf("     - BH1750 not detected (Light sensor)\n");
     	return false;
 }
 

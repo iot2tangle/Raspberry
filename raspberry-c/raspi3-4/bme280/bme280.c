@@ -37,7 +37,7 @@ bool check_bme280()
     id = (uint16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_CHIPID);
 	if(id == 65535)			// When ID is 65535 is because BME280 is not connected
 	{
-		printf ("\n- BME280 not detected\n");
+		printf("     - BME280 not detected (Temperat, Humidity, Pressure sensor)\n");
 		return false;
     }
     else
