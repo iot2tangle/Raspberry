@@ -43,11 +43,7 @@ cd raspberry-c/
 
 #### 6) Compile the code with:
 ```
-make Raspi3/4-HTTP
-```
-Optionally, you can see all the targets avaliable with: 
-```
-make
+make Raspi3-4-HTTP
 ```
 #### 7) Run:
 ```

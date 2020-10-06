@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <time.h> 
-#include <unistd.h>
 
 #include "struct-device.h"
 #include "config.h"
@@ -11,6 +9,7 @@
 #include "raspi3-4/bme280/bme280.h"
 #include "raspi3-4/mpu6050/mpu6050.h"
 #include "raspi3-4/bh1750/bh1750.h"
+#include "raspi3-4/basics.h"
 
 
 
@@ -67,8 +66,8 @@ void initPeripherals(long* c)
 {
 	*c = 0;		// Init counter
 	//if RaspberryPi
-	printf("\n				----  Raspberry Pi 3/4  -- IOT2TANGLE  --  \n\n");		// ESTO VA EN LOS ESPECIFICOS DE RASPBERRY
-
+	welcome_msg();
+	
 	//initGPIO();
 	
 	init_bme280();
@@ -81,7 +80,7 @@ void initPeripherals(long* c)
 
 void connectNetwork(struct device *z)
 {
-
+									// METER ESTE EN BASICS
 //  while ( !connectAttempt() )    /* Attempt to connect to the network via WiFi, in RaspberryPi only check connection to the network. */
 //  	error(1);
 
@@ -96,9 +95,9 @@ void connectNetwork(struct device *z)
 void getData(struct device *z, long *c)
 {
 	int i;
-	
-	printf ("\n\nData collect - %ld\n   Sensors Detection:\n", ++(*c));		// ESTO VA EN LOS ESPECIFICOS DE RASPBERRY
-	
+	++(*c);
+//	printf ("\n\nData collect - %ld\n   Sensors Detection:\n", ++(*c));		// ESTO VA EN LOS ESPECIFICOS DE RASPBERRY
+	d_collect_msg( c );
 	
 	/* GET DATA INTERNAL TEMPERATURE */
 	strcpy(z->d[0], get_internal_temp());
@@ -240,12 +239,10 @@ bool sendtoEndpoint(struct device *z)
 
 void t_delay(long d, long l) 
 {  
-    usleep( (d - l) * 1000000 );	/* Time set by user  minus  loss time by operation */ 
+	udelay_basics ( (d - l) * 1000000 );	/* Time set by user  minus  loss time by operation */ 
 }
 
 long take_time() 
 {  
-   time_t t;
-   time(&t);
-   return t;
+   return take_time_basics();
 }

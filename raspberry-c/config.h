@@ -5,7 +5,7 @@
 
 
 /* Device */
-const char* id_name = "PI3/4_HTTP";
+const char* id_name = "PI3-4_HTTP";
 
 /* Network */
 const char* endpoint = "192.168.1.113/sensor_data";    /* Endpoint must not include 'http://xxx' */
