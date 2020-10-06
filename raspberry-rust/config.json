@@ -1,7 +1,0 @@
-{
-    "device_name": "PI3-4_HTTP",
-    "port": 8080,
-    "node": "https://nodes.iota.cafe:443",
-    "mwm": 14,
-    "local_pow": false
-}
