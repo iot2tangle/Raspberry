@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h> 
-
 #include <unistd.h>
 
 #include "struct-device.h"
@@ -71,11 +70,12 @@ void initPeripherals(long* c)
 	printf("\n				----  Raspberry Pi 3/4  -- IOT2TANGLE  --  \n\n");		// ESTO VA EN LOS ESPECIFICOS DE RASPBERRY
 
 	//initGPIO();
-
+	
 	init_bme280();
 
 	init_mpu6050();
-
+	
+	init_bh1750();
 }
 
 
@@ -120,7 +120,7 @@ void getData(struct device *z, long *c)
 
 	/* GET DATA LIGHT */
 	if (check_bh1750())
-		strcpy(z->d[5], "1300");
+		strcpy(z->d[5], get_bh1750());
 	else
 		strcpy(z->d[5], "0");
 
@@ -223,7 +223,6 @@ void generateJson(struct device *z)
 	strcat(z->json, z->id);
 	strcat(z->json, "\",\"timestamp\": \"0\"}");	
 
- //   strcpy(z->json, "{\"xdk2mam\":[{\"sensor\": \"Environmental\",\"data\":[{\"Pressure\":\"102033\"},{\"Temp\":\"26160\"},{\"Humidity\":\"33\"}]},{\"sensor\":\"Accel\",\"data\":[{\"x\":\"9\"},{\"y\":\"12\"},{\"z\":\"1009\"}]},{\"sensor\":\"Gyroscope\",\"data\":[{\"x\":\"122\"},{\"y\":\"1708\"},{\"z\":\"5246\"}]},{\"sensor\":\"Inertial\",\"data\":[{\"x\":\"183\"},{\"y\":\"122\"},{\"z\":\"-915\"}]},{\"sensor\":\"Light\",\"data\":[{\"milliLux\":\"192960\"}]},{\"sensor\":\"Magnetometer\",\"data\":[{\"x\":\"-59\"},{\"y\":\"3\"},{\"z\":\"7\"}]},{\"sensor\":\"Acoustic\",\"data\":[{\"mp\":\"0.004649\"}]} ],\"device\": \"XDK_HTTP\",\"timestamp\": \"1601653408\"}");
 }
 
 
