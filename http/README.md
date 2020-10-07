@@ -35,9 +35,9 @@ Optionally, you can see the I2C devices connected in your Raspi with:
 i2cdetect -y 1
 ```
 #### 4) Copy the repository to the local file system of your Raspberry.
+
 ```
-git clone https://github.com/iot2tangle/raspberry2tangle
-cd raspberry-c/
+git clone https://github.com/iot2tangle/Raspberry.git
 ```
 #### 5) Edit the file config.h, and complete with the configuration you need.
  ---- Edit later ----
