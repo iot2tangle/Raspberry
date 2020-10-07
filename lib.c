@@ -3,15 +3,7 @@
 #include <stdbool.h>
 #include "struct-device.h"
 #include "config.h"
-#include "raspi3-4/basics.h"
-#include "raspi3-4/gpio/gpio.h"
-#include "raspi3-4/http-socket/http-socket.h"
-#include "raspi3-4/tIntern/tIntern.h"
-#include "raspi3-4/bme280/bme280.h"
-#include "raspi3-4/mpu6050/mpu6050.h"
-#include "raspi3-4/bh1750/bh1750.h"
-#include "raspi3-4/acoustic/acoustic.h"
-
+#include "raspi3-4/raspi3-4-headers.h"
 
 
 void config(struct device *z)
