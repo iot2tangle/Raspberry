@@ -28,25 +28,23 @@ sudo raspi-config
 ```
 Use the down arrow to select 5: *'Interfacing Options'*, again use the arrow and select 5: *'I2C'*, then *Enable*.
 
-#### 3) Reboot the Raspberry.
-
 Optionally, you can see the I2C devices connected in your Raspi with: 
 ```
 i2cdetect -y 1
 ```
-#### 4) Copy the repository to the local file system of your Raspberry.
+#### 3) Copy the repository to the local file system of your Raspberry.
 
 ```
 git clone https://github.com/iot2tangle/Raspberry.git
 ```
-#### 5) Edit the file config.h, and complete with the configuration you need.
+#### 4) Edit the file config.h, and complete with the configuration you need.
  ---- Edit later ----
 
-#### 6) Compile the code with:
+#### 5) Compile the code with:
 ```
 make Raspi3-4-HTTP
 ```
-#### 7) Run:
+#### 6) Run:
 ```
 ./Raspi-I2T
 ```
