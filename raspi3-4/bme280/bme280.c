@@ -20,20 +20,17 @@ char* s;
 
 void init_bme280()
 {
-  fd = wiringPiI2CSetup(0x76);
+    fd = wiringPiI2CSetup(0x76);
   
-  //bme280_calib_data cal;
-  readCalibrationData(fd, &cal);
+    readCalibrationData(fd, &cal);
 
-  wiringPiI2CWriteReg8(fd, 0xf2, 0x01);   // humidity oversampling x 1
-  wiringPiI2CWriteReg8(fd, 0xf4, 0x25);   // pressure and temperature oversampling x 1, mode normal	
+    wiringPiI2CWriteReg8(fd, 0xf2, 0x01);   // humidity oversampling x 1
+    wiringPiI2CWriteReg8(fd, 0xf4, 0x25);   // pressure and temperature oversampling x 1, mode normal	
 }
 
 
 bool check_bme280()
-{
-    //fd = wiringPiI2CSetup(0x76);	// Check I2C Address
-    
+{   
     id = (uint16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_CHIPID);
 	if(id == 65535)			// When ID is 65535 is because BME280 is not connected
 	{
@@ -42,43 +39,40 @@ bool check_bme280()
     }
     else
 		return true;
- }
+}
 
-char* get_bme280(int ind) {
-  
-  //fd = wiringPiI2CSetup(0x76);
+char* get_bme280(int ind) 
+{
+    readCalibrationData(fd, &cal);
 
-  //bme280_calib_data cal;
-  readCalibrationData(fd, &cal);
+    getRawData(fd, &raw);
 
-  //bme280_raw_data raw;
-  getRawData(fd, &raw);
-
-  t_fine = getTemperatureCalibration(&cal, raw.temperature);
+    t_fine = getTemperatureCalibration(&cal, raw.temperature);
    
-  s = "";
+    s = " ";
   
-  if (ind == 0)
-       {
-			sprintf(buffer, "%.2f", compensateTemperature(t_fine));
-			s=buffer;
-			return s ; /* Celsius */
-       }
-  if (ind == 1)
-       {
-			sprintf(buffer, "%.2f", compensateHumidity(raw.humidity, &cal, t_fine) );
-			s=buffer;
-			return s ; /* % */
-       }
+    if (ind == 0)
+    {
+		sprintf(buffer, "%.2f", compensateTemperature(t_fine));
+		s=buffer;
+		return s ; /* Celsius */
+    }
+    
+    if (ind == 1)
+    {
+		sprintf(buffer, "%.2f", compensateHumidity(raw.humidity, &cal, t_fine) );
+		s=buffer;
+		return s ; /* % */
+    }
 
-  if (ind == 2)
-       {
-			sprintf(buffer, "%.1f", compensatePressure(raw.pressure, &cal, t_fine) / 100 );
-			s=buffer;
-			return s ; /* hPa */
-       }
+    if (ind == 2)
+    {
+		sprintf(buffer, "%.1f", compensatePressure(raw.pressure, &cal, t_fine) / 100 );
+		s=buffer;
+		return s ; /* hPa */
+    }
   
-  return 0;
+    return 0;
 }
 
 

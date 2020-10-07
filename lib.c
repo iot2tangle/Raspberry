@@ -11,6 +11,7 @@
 #include "raspi3-4/bme280/bme280.h"
 #include "raspi3-4/mpu6050/mpu6050.h"
 #include "raspi3-4/bh1750/bh1750.h"
+#include "raspi3-4/acoustic-sens/acoustic-sens.h"
 
 
 void led_blinks(int led, int iter, int usec)	// LED Blink function-> led: 0 Green LED, 1 Red LED - iter: iterations quantity - usec: delay time in usec
@@ -87,6 +88,8 @@ void initPeripherals(long* c)
 	init_mpu6050();
 	
 	init_bh1750();
+	
+	init_acoustic();
 }
 
 
@@ -100,8 +103,6 @@ void connectNetwork(struct device *z)
 		printf(" "); //		error(2);
 
 }
-
-
 
 
 void getData(struct device *z, long *c)
@@ -127,7 +128,10 @@ void getData(struct device *z, long *c)
 	}
 
 	/* GET DATA ACOUSTIC */
-	strcpy(z->d[4], "True");
+	if (check_acoustic())
+		strcpy(z->d[4], get_acoustic());
+	else	
+		strcpy(z->d[4], "0");
 
 	/* GET DATA LIGHT */
 	if (check_bh1750())

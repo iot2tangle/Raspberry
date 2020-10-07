@@ -12,7 +12,7 @@ char* s;
 
 void welcome_msg()
 {
-   printf("\n					----  Raspberry Pi 3/4  -- IOT2TANGLE  --  \n\n");
+   printf("\n					----  Raspberry Pi 3/4 -- IOT2TANGLE  --  HTTP  ----\n\n");
 } 
 	
 void d_collect_msg(long* n)

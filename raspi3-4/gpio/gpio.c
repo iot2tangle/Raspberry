@@ -10,9 +10,6 @@
 #define GREEN_LED 0		// GPIO 17 Raspberry Pi 3/4
 #define RED_LED 2		// GPIO 2 Raspberry Pi 3/4
 
-//#define enable_sonido 4		// GPIO 23 Raspberry Pi 3/4
-//#define senal_sonido 5		// GPIO 24 Raspberry Pi 3/4
-
 
 void init_LEDs()
 {
@@ -39,12 +36,7 @@ void led_GPIO(int led, int mode)
 	else
 		digitalWrite (RED_LED, mode);
 }
-char* get_acoustic()
-{
-	// read_GPIO enable
-	// read gpio sensor
-	return 0;
-}
+
 
 bool read_GPIO(int pin)
 {

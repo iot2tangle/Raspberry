@@ -5,7 +5,6 @@
 
 void init_LEDs();
 void led_GPIO(int, int);
-char* get_acoustic();
 bool read_GPIO(int);
 
 #endif
