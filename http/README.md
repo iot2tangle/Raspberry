@@ -1,5 +1,6 @@
 # Raspberry PI3/4 with I2T Sensor's Stack
-Intro....
+
+The Raspberry Pi is a series of small single-board computers developed in the United Kingdom by the Raspberry Pi Foundation. Early on, the Raspberry Pi project leaned towards the promotion of teaching basic computer science in schools and in developing countries
 
 ## Setting up your Raspberry
 
