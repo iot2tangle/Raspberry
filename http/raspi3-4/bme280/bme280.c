@@ -17,6 +17,14 @@ int id;
 char buffer[100];
 char* s;
 
+bool check_bme280()
+{   
+    id = (uint16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_CHIPID);
+	if(id == 65535)			// When ID is 65535 is because BME280 is not connected
+		return false;
+    else
+		return true;
+}
 
 void init_bme280()
 {
@@ -25,20 +33,15 @@ void init_bme280()
     readCalibrationData(fd, &cal);
 
     wiringPiI2CWriteReg8(fd, 0xf2, 0x01);   // humidity oversampling x 1
-    wiringPiI2CWriteReg8(fd, 0xf4, 0x25);   // pressure and temperature oversampling x 1, mode normal	
+    wiringPiI2CWriteReg8(fd, 0xf4, 0x25);   // pressure and temperature oversampling x 1, mode normal	  
 }
 
-
-bool check_bme280()
-{   
-    id = (uint16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_CHIPID);
-	if(id == 65535)			// When ID is 65535 is because BME280 is not connected
-	{
-		printf("     - BME280 not detected (Temperat, Humidity, Pressure sensor)\n");
-		return false;
-    }
-    else
-		return true;
+void print_bme280()
+{
+	 if (check_bme280())
+		printf("     - BME280		OK\n");
+	else
+		printf("     - BME280		Not detected (Temperat, Humidity, Pressure sensor)\n");
 }
 
 char* get_bme280(int ind) 

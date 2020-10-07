@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <wiringPi.h>
-#include "acoustic-sens.h"
+#include "acoustic.h"
 
 #define ACOUSTIC_ENABLE 4	// GPIO 23 Raspberry Pi 3/4
 #define ACOUSTIC_DATA 5	// GPIO 24 Raspberry Pi 3/4
@@ -13,23 +13,28 @@
 char buffer[100];
 char* s;
 
+bool check_acoustic()
+{
+    if (!digitalRead (ACOUSTIC_ENABLE))
+		return true;
+    else
+		return false;
+}
+
 void init_acoustic()
 {
     pullUpDnControl(ACOUSTIC_ENABLE, PUD_UP);
     pinMode (ACOUSTIC_ENABLE, INPUT);
     
-    pinMode (ACOUSTIC_DATA, OUTPUT);
+    pinMode (ACOUSTIC_DATA, INPUT);
 }
 
-bool check_acoustic()
+void print_acoustic()
 {
-    if (!digitalRead (ACOUSTIC_ENABLE))
-	return true;
-    else
-    {
-	printf("     - Acoustic Sensor not detected\n");
-	return false;
-    }
+	if (check_acoustic())
+		printf("     - ACOUSTIC Sensor	OK\n");
+	else
+		printf("     - ACOUSTIC Sensor	Not detected\n");
 }
 
 char* get_acoustic()

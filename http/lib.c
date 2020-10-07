@@ -11,20 +11,9 @@
 #include "raspi3-4/bme280/bme280.h"
 #include "raspi3-4/mpu6050/mpu6050.h"
 #include "raspi3-4/bh1750/bh1750.h"
-#include "raspi3-4/acoustic-sens/acoustic-sens.h"
+#include "raspi3-4/acoustic/acoustic.h"
 
 
-void led_blinks(int led, int iter, int usec)	// LED Blink function-> led: 0 Green LED, 1 Red LED - iter: iterations quantity - usec: delay time in usec
-{	
-	int i;
-	for (i=0;i<iter;i++)
-	{
-		led_GPIO(led, 1);
-		udelay_basics (usec);
-		led_GPIO(led, 0);
-		udelay_basics (usec);
-	}
-}
 
 void config(struct device *z)
 {
@@ -53,10 +42,12 @@ void config(struct device *z)
     z->isEnable[3] = isEnable_Pressure;
     z->isEnable[4] = isEnable_Acoustic;
     z->isEnable[5] = isEnable_Light;
-    for (i=6; i<9; i++)
-		z->isEnable[i] = isEnable_Accelerometer;
-    for (i=9; i<12; i++)
-		z->isEnable[i] = isEnable_Gyroscope;
+	z->isEnable[6] = isEnable_Accelerometer_X;
+	z->isEnable[7] = isEnable_Accelerometer_Y;
+	z->isEnable[8] = isEnable_Accelerometer_Z;
+	z->isEnable[9] = isEnable_Gyroscope_X;
+	z->isEnable[10] = isEnable_Gyroscope_Y;
+	z->isEnable[11] = isEnable_Gyroscope_Z;
 
     z->s_name[0] = "InternalTemperature";   // In ESP8266 -> "InternalVoltage"
     z->s_name[1] = "Temperature";
@@ -95,7 +86,7 @@ void initPeripherals(long* c)
 
 void connectNetwork(struct device *z)
 {
-									// METER ESTE EN BASICS
+									
 //  while ( !connectAttempt() )    /* Attempt to connect to the network via WiFi, in RaspberryPi only check connection to the network. */
 //  	error(1);
 
@@ -104,13 +95,27 @@ void connectNetwork(struct device *z)
 
 }
 
+void pnp_sensors()
+{
+	init_bme280();
+
+	init_mpu6050();
+	
+	init_bh1750();
+	
+	init_acoustic();
+}
+
 
 void getData(struct device *z, long *c)
 {
 	int i;
 	++(*c);
-//	printf ("\n\nData collect - %ld\n   Sensors Detection:\n", ++(*c));		// ESTO VA EN LOS ESPECIFICOS DE RASPBERRY
+	
+	//if Raspberry PI
 	d_collect_msg( c );
+	print_sensors_state();
+	
 	
 	/* GET DATA INTERNAL TEMPERATURE */
 	strcpy(z->d[0], get_internal_temp());
@@ -157,82 +162,132 @@ void generateJson(struct device *z)
 {
 	z->s_name[0]= "InternalTemperature"; // Valor Harcodeado porque este string se rompe cuando entra a la funcion, ya voy a ver porque, por ahora asi
 
-	int i;
+	int i, aux;
 
 	strcpy(z->json, "{\"iot2tangle\":[");
-
+	
+	aux = 0;
 	strcat(z->json, "{\"sensor\":\"Internal\",\"data\":[");
 	for (i=0;i<1;i++)
 	{
-		if (i != 0) strcat(z->json, ",");
-		strcat(z->json, "{\"");
-		strcat(z->json, z->s_name[i]);
-		strcat(z->json, "\":\"");
-		strcat(z->json, z->d[i]);
-		strcat(z->json, "\"}");
+		if (z->isEnable[i+0])
+		{
+			if (aux != i) strcat(z->json, ",");
+			strcat(z->json, "{\"");
+			strcat(z->json, z->s_name[i+0]);
+			strcat(z->json, "\":\"");
+			strcat(z->json, z->d[i+0]);
+			strcat(z->json, "\"}");
+		}
+		else
+			aux++;
 	}
-	strcat(z->json, "]},");
+	strcat(z->json, "]}");
 	
-	strcat(z->json, "{\"sensor\":\"Environmental\",\"data\":[");
-	for (i=0;i<3;i++)
+	if (check_bme280())
 	{
-		if (i != 0) strcat(z->json, ",");
-		strcat(z->json, "{\"");
-		strcat(z->json, z->s_name[i+1]);
-		strcat(z->json, "\":\"");
-		strcat(z->json, z->d[i+1]);
-		strcat(z->json, "\"}");
+		aux = 0;
+		strcat(z->json, ",{\"sensor\":\"Environmental\",\"data\":[");
+		for (i=0;i<1;i++)
+		{
+			if (z->isEnable[i+1])
+			{
+				if (aux != i) strcat(z->json, ",");
+				strcat(z->json, "{\"");
+				strcat(z->json, z->s_name[i+1]);
+				strcat(z->json, "\":\"");
+				strcat(z->json, z->d[i+1]);
+				strcat(z->json, "\"}");
+			}
+			else
+				aux++;
+		}
+		strcat(z->json, "]}");
 	}
-	strcat(z->json, "]},");
 	
-	strcat(z->json, "{\"sensor\":\"Acoustic\",\"data\":[");
-	for (i=0;i<1;i++)
+	if (check_acoustic())
 	{
-		if (i != 0) strcat(z->json, ",");
-		strcat(z->json, "{\"");
-		strcat(z->json, z->s_name[i+4]);
-		strcat(z->json, "\":\"");
-		strcat(z->json, z->d[i+4]);
-		strcat(z->json, "\"}");
+		aux = 0;
+		strcat(z->json, ",{\"sensor\":\"Acoustic\",\"data\":[");
+		for (i=0;i<1;i++)
+		{
+			if (z->isEnable[i+4])
+			{
+				if (aux != i) strcat(z->json, ",");
+				strcat(z->json, "{\"");
+				strcat(z->json, z->s_name[i+4]);
+				strcat(z->json, "\":\"");
+				strcat(z->json, z->d[i+4]);
+				strcat(z->json, "\"}");
+			}
+			else
+				aux++;
+		}
+		strcat(z->json, "]}");
 	}
-	strcat(z->json, "]},");
 	
-	strcat(z->json, "{\"sensor\":\"Light\",\"data\":[");
-	for (i=0;i<1;i++)
+	if (check_bh1750())
 	{
-		if (i != 0) strcat(z->json, ",");
-		strcat(z->json, "{\"");
-		strcat(z->json, z->s_name[i+5]);
-		strcat(z->json, "\":\"");
-		strcat(z->json, z->d[i+5]);
-		strcat(z->json, "\"}");
+		aux = 0;
+		strcat(z->json, ",{\"sensor\":\"Light\",\"data\":[");
+		for (i=0;i<1;i++)
+		{
+			if (z->isEnable[i+5])
+			{
+				if (aux != i) strcat(z->json, ",");
+				strcat(z->json, "{\"");
+				strcat(z->json, z->s_name[i+5]);
+				strcat(z->json, "\":\"");
+				strcat(z->json, z->d[i+5]);
+				strcat(z->json, "\"}");
+			}
+			else
+				aux++;
+		}
+		strcat(z->json, "]}");
 	}
-	strcat(z->json, "]},");
 	
-	
-	strcat(z->json, "{\"sensor\":\"Acelerometer\",\"data\":[");
-	for (i=0;i<3;i++)
+	if (check_mpu6050())
 	{
-		if (i != 0) strcat(z->json, ",");
-		strcat(z->json, "{\"");
-		strcat(z->json, z->s_name[i+6]);
-		strcat(z->json, "\":\"");
-		strcat(z->json, z->d[i+6]);
-		strcat(z->json, "\"}");
+		aux = 0;
+		strcat(z->json, ",{\"sensor\":\"Acelerometer\",\"data\":[");
+		for (i=0;i<3;i++)
+		{
+			if (z->isEnable[i+6])
+			{
+				if (aux != i) strcat(z->json, ",");
+				strcat(z->json, "{\"");
+				strcat(z->json, z->s_name[i+6]);
+				strcat(z->json, "\":\"");
+				strcat(z->json, z->d[i+6]);
+				strcat(z->json, "\"}");
+			}
+			else
+				aux++;
+		}
+		strcat(z->json, "]}");
 	}
-	strcat(z->json, "]},");
 
-	strcat(z->json, "{\"sensor\":\"Gyroscope\",\"data\":[");
-	for (i=0;i<3;i++)
+		if (check_mpu6050())
 	{
-		if (i != 0) strcat(z->json, ",");
-		strcat(z->json, "{\"");
-		strcat(z->json, z->s_name[i+9]);
-		strcat(z->json, "\":\"");
-		strcat(z->json, z->d[i+9]);
-		strcat(z->json, "\"}");
+		aux = 0;
+		strcat(z->json, ",{\"sensor\":\"Gyroscope\",\"data\":[");
+		for (i=0;i<3;i++)
+		{
+			if (z->isEnable[i+9])
+			{
+				if (aux != i) strcat(z->json, ",");
+				strcat(z->json, "{\"");
+				strcat(z->json, z->s_name[i+9]);
+				strcat(z->json, "\":\"");
+				strcat(z->json, z->d[i+9]);
+				strcat(z->json, "\"}");
+			}
+			else
+				aux++;
+		}
+		strcat(z->json, "]}");
 	}
-	strcat(z->json, "]}");		// The last one without ','
 	
 	strcat(z->json, "],\"device\": \"");
 	strcat(z->json, z->id);
@@ -240,6 +295,17 @@ void generateJson(struct device *z)
 
 }
 
+void led_blinks(int led, int iter, int usec)	// LED Blink function-> led: 0 Green LED, 1 Red LED - iter: iterations quantity - usec: delay time in usec
+{	
+	int i;
+	for (i=0;i<iter;i++)
+	{
+		led_GPIO(led, 1);
+		udelay_basics (usec);
+		led_GPIO(led, 0);
+		udelay_basics (usec);
+	}
+}
 
 bool sendtoEndpoint(struct device *z)
 {
@@ -253,7 +319,6 @@ bool sendtoEndpoint(struct device *z)
 }
 
 
-
 void t_delay(long d, long l) 
 {  
 	udelay_basics ( (d - l) * 1000000 );	/* Time set by user  minus  loss time by operation */ 
@@ -263,3 +328,5 @@ long take_time()
 {  
    return take_time_basics();
 }
+
+

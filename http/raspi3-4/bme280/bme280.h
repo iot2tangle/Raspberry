@@ -91,6 +91,7 @@ typedef struct
 void init_bme280(void);
 bool check_bme280(void);
 char* get_bme280(int ind);
+void print_bme280(void);
 void readCalibrationData(int fd, bme280_calib_data *cal);
 int32_t getTemperatureCalibration(bme280_calib_data *cal, int32_t adc_T);
 float compensateTemperature(int32_t t_fine);
