@@ -6,5 +6,6 @@
 bool check_bh1750(void);
 void init_bh1750(void);
 char* get_bh1750(void);
+void print_bh1750(void);
 
 #endif

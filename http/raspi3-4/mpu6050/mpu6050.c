@@ -13,27 +13,30 @@ int id_mpu;
 char buffer[100];
 char* s;
 
-void init_mpu6050()
-{
-    fd_mpu = wiringPiI2CSetup(0x68);
-    power = wiringPiI2CReadReg8(fd_mpu, MPU_POWER1);
-    wiringPiI2CWriteReg8(fd_mpu, MPU_POWER1, ~(1 << 6) & power);  
-} 
-
-
 bool check_mpu6050()
 {
     //fd_mpu = wiringPiI2CSetup(0x68);	/* Check I2C Address */
     int id_mpu = (uint8_t)wiringPiI2CReadReg8(fd_mpu, MPU_ID);
-    if(id_mpu == 255) 
-    {
-		printf("     - MPU6050 not detected (Accelerometer, Gyroscope sensor)\n");
+    if(id_mpu == 255) 	
 		return false;
-	}
     else
     	return true;
 }
 
+void init_mpu6050()
+{
+    fd_mpu = wiringPiI2CSetup(0x68);
+    power = wiringPiI2CReadReg8(fd_mpu, MPU_POWER1);
+    wiringPiI2CWriteReg8(fd_mpu, MPU_POWER1, ~(1 << 6) & power);
+} 
+
+void print_mpu6050()
+{
+	if (check_mpu6050())
+		printf("     - MPU6050		OK\n");
+	else
+		printf("     - MPU6050		Not detected (Accelerometer, Gyroscope sensor)\n");
+}
 	
 char* get_mpu6050(int a)
 {

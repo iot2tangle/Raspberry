@@ -26,7 +26,7 @@ bool socket_sender(const char* endp, int p, const char* j, long t)
         curl_easy_setopt(handle, CURLOPT_POSTFIELDS, j);
         curl_easy_setopt(handle, CURLOPT_URL, endp);
         curl_easy_setopt(handle, CURLOPT_PORT, p);
-        curl_easy_setopt(handle, CURLOPT_TIMEOUT, t-2);	/* timeout is: 'Time set by user  minus  1', this is for give the user until the last second the opportunity to see if their message was sent to the tangle (when the tangle is congested) */
+        curl_easy_setopt(handle, CURLOPT_TIMEOUT, t-3);	/* timeout is: 'Time set by user  minus  3', this is for give the user until the last seconds the opportunity to see if their message was sent to the tangle (when the tangle is congested) */
         isEndpoint = curl_easy_perform(handle);
 
         curl_easy_cleanup (handle);
