@@ -37,10 +37,11 @@ i2cdetect -y 1
 ```
 git clone https://github.com/iot2tangle/Raspberry.git
 ```
-#### 4) Edit the file config.h, and complete with the configuration you need.
+#### 4) Edit the file config.h
 
-Define the values for your configuration to match your WiFi data, the endpoint that will have the IOTA Streams Gateway running and the Device Id.
-The Device Id you define here must be exactly what you set on the Gateway configuration file. 
+Navigate to the **Raspberry/http** directory and edit the **config.h** file to define the values for your configuration to match your WiFi data, the endpoint that will have the IOTA Streams Gateway running and the Device Id. The Device Id you define here must be exactly what you set on the Gateway configuration file. 
+
+Keep in mind that any changes on the config file will require to recompile the code.
 
 ```
 const char* id_name = "Raspi-HTTP";
@@ -64,7 +65,11 @@ make Raspi3-4-HTTP
 ./Raspi-I2T
 ```
 
-If the endpoint is configured correctly, you will be sending data to the Tangle via Streams :)
+If the Streams Gateway endpoint is configured correctly (we will explain this next), you will be sending data to the Tangle via Streams. The following capture shows a Raspberry with a BME280 connected (note how the sensor is detected automatically)
+
+
+![Raspberry with BME280 sending data to the Tangle](https://iot2tangle.io/assets/screenshots/PiStackSend.png)
+
 	
 # Setting up the Streams Gateway
 
