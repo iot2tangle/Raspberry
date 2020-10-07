@@ -16,7 +16,7 @@ This is the list of Sensors/Modules that you can connect and it will be recogniz
 - ***Generic Adjustable Sound Sensor with digital output*** (like *KY038 Module*) - -> Digital Signal on GPIOX, +5V in GPIOX (to enable data collection).
 - Also, you can connect a ***Green LED*** in GPIOX that blink when the data is sent to the Tangle, and a ***Red LED*** in GPIOX that will Blink in a certain way when it detects certain errors (totally optional)
 
-# Available connectivity
+## Available connectivity
 - **[HTTP](https://github.com/iot2tangle/Raspberry/tree/main/http)** (WiFi will post a request with the data to a given server)
 
 
