@@ -38,7 +38,22 @@ i2cdetect -y 1
 git clone https://github.com/iot2tangle/Raspberry.git
 ```
 #### 4) Edit the file config.h, and complete with the configuration you need.
- ---- Edit later ----
+
+Define the values for your configuration to match your WiFi data, the endpoint that will have the IOTA Streams Gateway running and the Device Id.
+The Device Id you define here must be exactly what you set on the Gateway configuration file. 
+
+```
+const char* id_name = "Raspi-HTTP";
+
+/* Network */
+const char* endpoint = "192.168.1.113/sensor_data";    /* Endpoint must not include 'http://xxx' */
+int port = 8080;
+
+bool isWifi = false; /* This is 'true' for microcontrollers like ESP32 or STM32. In RaspberryPi it will be 'false', because the network connection is made outside the program by the Raspberry OS */
+const char* ssid_WiFi = "SSID-WIFI";
+const char* pass_WiFi = "pass_WiFi";
+```
+
 
 #### 5) Compile the code with:
 ```
