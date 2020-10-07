@@ -23,7 +23,6 @@ struct device {
    long interv; 
    
    char json[1023];
- 
 }; 
 
 #endif

@@ -17,7 +17,7 @@ char* s;
 bool check_bh1750()
 {
     if( wiringPiI2CReadReg16(fd_bh, 0x00) == -1 ) 
-		return false;
+	return false;
     else
     	return true;
 }
@@ -30,9 +30,9 @@ void init_bh1750()
 void print_bh1750()
 {   
     if (check_bh1750())
-		printf("     - BH1750		OK\n");
-	else
-		printf("     - BH1750		Not detected (Light sensor)\n");
+	printf("     - BH1750		OK\n");
+    else
+	printf("     - BH1750		Not detected (Light sensor)\n");
 }
 	
 char* get_bh1750()
