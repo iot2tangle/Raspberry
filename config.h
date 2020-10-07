@@ -15,11 +15,11 @@ bool isWifi = false; /* This is 'true' for microcontrollers like ESP32 or STM32.
 const char* ssid_WiFi = "SSID-WIFI";
 const char* pass_WiFi = "pass_WiFi";
 
-/* Enable Sensors */   
+/* Enable Sensors */
 bool isEnable_TemperatureIntern = true;
 bool isEnable_TemperatureExtern = true;	   /*                     true: Enable  --  false: Disable                            */
 bool isEnable_Humidity = true;			   /* If the sensor is disabled the data about it will not be displayed in the Tangle */
-bool isEnable_Pressure = true;             
+bool isEnable_Pressure = true;
 bool isEnable_Acoustic = true;
 bool isEnable_Light = true;
 bool isEnable_Accelerometer = true;

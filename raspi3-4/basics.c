@@ -12,17 +12,17 @@ char* s;
 
 void welcome_msg()
 {
-    printf("\n					----  Raspberry Pi 3/4  -- IOT2TANGLE  --  \n\n");		// ESTO VA EN LOS ESPECIFICOS DE RASPBERRY
+   printf("\n					----  Raspberry Pi 3/4  -- IOT2TANGLE  --  \n\n");
 } 
 	
 void d_collect_msg(long* n)
 {
-	printf ("\n\nData collect - %ld\n   Sensors Detection:\n", *n);		// ESTO VA EN LOS ESPECIFICOS DE RASPBERRY
+   printf ("\n\nData collect - %ld\n   Sensors Detection:\n", *n);
 }
 
 void udelay_basics (long d)
 {
-	usleep(d);
+   usleep(d);
 }
 
 long take_time_basics()

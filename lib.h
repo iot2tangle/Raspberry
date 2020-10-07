@@ -10,6 +10,7 @@ void getData(struct device *,long *);
 void generateJson(struct device *);
 bool sendtoEndpoint(struct device *);
 void t_delay(long, long); 
-long take_time(); 
+long take_time();
+void led_blinks (int, int, int);
 
 #endif

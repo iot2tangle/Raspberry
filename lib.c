@@ -4,14 +4,26 @@
 
 #include "struct-device.h"
 #include "config.h"
+#include "raspi3-4/basics.h"
+#include "raspi3-4/gpio/gpio.h"
 #include "raspi3-4/http-socket/http-socket.h"
 #include "raspi3-4/tIntern/tIntern.h"
 #include "raspi3-4/bme280/bme280.h"
 #include "raspi3-4/mpu6050/mpu6050.h"
 #include "raspi3-4/bh1750/bh1750.h"
-#include "raspi3-4/basics.h"
 
 
+void led_blinks(int led, int iter, int usec)	// LED Blink function-> led: 0 Green LED, 1 Red LED - iter: iterations quantity - usec: delay time in usec
+{	
+	int i;
+	for (i=0;i<iter;i++)
+	{
+		led_GPIO(led, 1);
+		udelay_basics (usec);
+		led_GPIO(led, 0);
+		udelay_basics (usec);
+	}
+}
 
 void config(struct device *z)
 {
@@ -68,7 +80,7 @@ void initPeripherals(long* c)
 	//if RaspberryPi
 	welcome_msg();
 	
-	//initGPIO();
+	init_LEDs();
 	
 	init_bme280();
 
@@ -229,12 +241,13 @@ bool sendtoEndpoint(struct device *z)
 {
 	bool b_socket = socket_sender(z->ep, z->ep_port, z->json, z->interv);
 	if (b_socket)
-		printf(" ");	// Blink in green LED;
+		led_blinks(0, 2, 60000);	// Blink in green LED;
 	else
-		printf(" ");	// Blink in green RED - ERROR 1 (Bad connection with the endpoint);
+		led_blinks(1, 3, 70000);	// Blink in green RED - ERROR 1 (Bad connection with the endpoint);
 	
 	return b_socket;
 }
+
 
 
 void t_delay(long d, long l) 
