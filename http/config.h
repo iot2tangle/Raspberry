@@ -5,7 +5,7 @@
 
 
 /* Device */
-const char* id_name = "Raspi-I2T";
+const char* id_name = "Raspi-HTTP";
 
 /* Network */
 const char* endpoint = "192.168.1.134/sensor_data";    /* Endpoint must not include 'http://xxx' */
