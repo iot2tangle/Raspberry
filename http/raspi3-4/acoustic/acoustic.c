@@ -16,9 +16,9 @@ char* s;
 bool check_acoustic()
 {
     if (!digitalRead (ACOUSTIC_ENABLE))
-		return true;
+	return true;
     else
-		return false;
+	return false;
 }
 
 void init_acoustic()
@@ -31,16 +31,16 @@ void init_acoustic()
 
 void print_acoustic()
 {
-	if (check_acoustic())
-		printf("     - ACOUSTIC Sensor	OK\n");
-	else
-		printf("     - ACOUSTIC Sensor	Not detected\n");
+    if (check_acoustic())
+	printf("SOUND Sensor : OK");
+    else
+	printf("SOUND Sensor : Not detected");
 }
 
 char* get_acoustic()
 {
     s = " ";
-	
+
     if (digitalRead (ACOUSTIC_DATA))
 	sprintf(buffer, "High");
     else
