@@ -32,9 +32,9 @@ void init_acoustic()
 void print_acoustic()
 {
     if (check_acoustic())
-	printf("     - ACOUSTIC Sensor	OK\n");
+	printf("SOUND Sensor : OK");
     else
-	printf("     - ACOUSTIC Sensor	Not detected\n");
+	printf("SOUND Sensor : Not detected");
 }
 
 char* get_acoustic()

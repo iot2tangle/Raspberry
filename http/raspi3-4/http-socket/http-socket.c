@@ -11,10 +11,10 @@ int isEndpoint;
 
 bool socket_sender(const char* endp, int p, const char* j, long t)
 {
-    printf("\nJSON:\n%s\n\n", j);
-    printf("	Sending Data to Tangle...\n");
+    printf("\nJSON: %s\n", j);
+    printf("\n	Sending Data to Tangle...\n");
 
-    printf("\n			*** ");
+    printf("			*** ");
 	
     curl_global_init(CURL_GLOBAL_ALL);
     handle = curl_easy_init();
@@ -33,30 +33,28 @@ bool socket_sender(const char* endp, int p, const char* j, long t)
     curl_global_cleanup();
     
     // Endpoint response
-    printf("\n			");
+    printf("\n");
     if (isEndpoint == 0)	
-	return true; 
+		return true; 
     else
     {
-	if (isEndpoint==28)
-	{
-	    printf("Timeout! The data was sent to the Tangle but no confirmation was received\n     If you receive this message very often you may need to increase the interval in seconds between data collection\n\n");
-	    return false;
-	}
-	else
-	{
-	    printf("Failed to send Data to Endpoint!\n");
-	    return false;
-	}
+		if (isEndpoint==28)
+		{
+	        printf("Timeout! The data was sent to the Tangle, but no confirmation was received. It should still be included in Tangle.\nIf you receive this message very often you may need to increase the interval in seconds between data collection.\n");
+	        return false;
+		}
+		else
+		{
+	        printf("Failed to send Data to Endpoint!\n");
+	        return false;
+		}
     }
-    printf("\n\n");
 }
 
 bool isEndpointOk(const char* endp, int p)
 {
     curl_global_init(CURL_GLOBAL_ALL);
     handle = curl_easy_init();
-
     if(handle) 
     {
 	curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_data);	/* Hide the response */
@@ -76,7 +74,7 @@ bool isEndpointOk(const char* endp, int p)
     }
     else
     {
-	printf(" -- Endpoint is NOT detected!! -- \n -- Please, check your configuration --\n");
+	printf(" -- Endpoint is NOT detected!! -- Please, check your configuration --\n");
 	return false;
     }
 }

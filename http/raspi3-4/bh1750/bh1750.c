@@ -30,9 +30,9 @@ void init_bh1750()
 void print_bh1750()
 {   
     if (check_bh1750())
-	printf("     - BH1750		OK\n");
+	printf("BH1750 : OK");
     else
-	printf("     - BH1750		Not detected (Light sensor)\n");
+	printf("BH1750 : Not detected (Light sensor)");
 }
 	
 char* get_bh1750()

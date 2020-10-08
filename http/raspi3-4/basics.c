@@ -21,17 +21,21 @@ void welcome_msg()
 
 void d_collect_msg(long* n)
 {
-    printf ("\n\nData collect - %ld\n", *n);
+	printf("---------------------------------------------------------------------------------------------------------------\n");
+    printf ("Data collect - %ld\n", *n);
 }
 
 void print_sensors_state()
 {
-    printf ("   Sensors Detection:\n");
-    print_bme280();
-    print_mpu6050();
-    print_bh1750();
-    print_acoustic();
-    printf ("\n");
+	printf ("   Sensors Detection:  ||	");
+	print_bme280();
+	printf("	||	");
+	print_mpu6050();
+	printf("	||	");
+	print_bh1750();
+	printf("	||	");
+	print_acoustic();
+	printf ("	||\n");
 }
 
 void udelay_basics (long d)

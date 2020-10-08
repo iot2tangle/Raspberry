@@ -41,9 +41,9 @@ short read_raw_data(int addr)
 void print_mpu6050()
 {
     if (check_mpu6050())
-	printf("     - MPU6050		OK\n");
+	printf("MPU6050 : OK");
     else
-	printf("     - MPU6050		Not detected (Accelerometer, Gyroscope sensor)\n");
+	printf("MPU6050 : Not detected (Accelerometer, Gyroscope sensor)");
 }
 
 char* get_mpu6050(int a)

@@ -5,10 +5,10 @@
 
 
 /* Device */
-const char* id_name = "RasPi3-4_HTTP";
+const char* id_name = "Raspi-I2T";
 
 /* Network */
-const char* endpoint = "192.168.1.113/sensor_data";    /* Endpoint must not include 'http://xxx' */
+const char* endpoint = "192.168.1.134/sensor_data";    /* Endpoint must not include 'http://xxx' */
 int port = 8080;
 
 bool isWifi = false; /* This is 'true' for microcontrollers like ESP32 or STM32. In RaspberryPi it will be 'false', because the network connection is made outside the program by the Raspberry OS */

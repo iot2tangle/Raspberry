@@ -39,9 +39,9 @@ void init_bme280()
 void print_bme280()
 {
     if (check_bme280())
-	printf("     - BME280		OK\n");
+	printf("BME280 : OK");
     else
-	printf("     - BME280		Not detected (Temperat, Humidity, Pressure sensor)\n");
+	printf("BME280 : Not detected (Temperat, Humidity, Pressure sensor)");
 }
 
 char* get_bme280(int ind) 

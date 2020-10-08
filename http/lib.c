@@ -71,13 +71,28 @@ void initPeripherals(long* c)
 }
 
 
+void led_blinks(int led, int iter, int usec)	// LED Blink function-> led: 0 Green LED, 1 Red LED - iter: iterations quantity - usec: delay time in usec
+{	
+    int i;
+    for (i=0;i<iter;i++)
+    {
+	led_GPIO(led, 1);
+	udelay_basics (usec);
+	led_GPIO(led, 0);
+	udelay_basics (usec);
+    }
+}
+
 void connectNetwork(struct device *z)
 {									
 //  while ( !connectAttempt() )    /* Attempt to connect to the network via WiFi, in RaspberryPi only check connection to the network. */
 //  	error(1);
 
-    if ( !isEndpointOk(z->ep, z->ep_port) )     /* Check Endpoint */
-	printf(" "); //		error(2);	
+	if ( !isEndpointOk(z->ep, z->ep_port) )     /* Check Endpoint */
+	{	
+		udelay_basics ( 100000 );
+		led_blinks(1, 3, 70000);	// Blink in green RED - ERROR 1 (Bad connection with the endpoint);
+	}	
 }
 
 void pnp_sensors()
@@ -275,25 +290,13 @@ void generateJson(struct device *z)
 	strcat(z->json, "\",\"timestamp\": \"0\"}");	
 }
 
-void led_blinks(int led, int iter, int usec)	// LED Blink function-> led: 0 Green LED, 1 Red LED - iter: iterations quantity - usec: delay time in usec
-{	
-    int i;
-    for (i=0;i<iter;i++)
-    {
-	led_GPIO(led, 1);
-	udelay_basics (usec);
-	led_GPIO(led, 0);
-	udelay_basics (usec);
-    }
-}
-
 bool sendtoEndpoint(struct device *z)
 {
     bool b_socket = socket_sender(z->ep, z->ep_port, z->json, z->interv);
     if (b_socket)
-	led_blinks(0, 2, 60000);	// Blink in green LED;
+		led_blinks(0, 2, 60000);	// Blink in green LED;
     else
-	led_blinks(1, 3, 70000);	// Blink in green RED - ERROR 1 (Bad connection with the endpoint);
+		led_blinks(1, 3, 70000);	// Blink in green RED - ERROR 1 (Bad connection with the endpoint);
 	
     return b_socket;
 }
