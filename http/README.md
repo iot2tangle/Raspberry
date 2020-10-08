@@ -2,11 +2,9 @@
 
 The Raspberry Pi is a series of small single-board computers developed in the United Kingdom by the Raspberry Pi Foundation. Early on, the Raspberry Pi project leaned towards the promotion of teaching basic computer science in schools and in developing countries
 
-## Setting up your Raspberry
+## Setting up your Raspberry with the I2T Sensors Stack
 
 The following installation is done on **"Raspberry Pi OS"** (formerly Raspbian) and works for *Raspberry Pi 3* and *Raspberry Pi 4*.
-
-**It is not necessary to have all the sensors listed here**, the code is able to detect which sensors were connected. In the case of not connecting any sensor, the only real data that will be displayed on the Tangle will be the **Internal Temperature** of Raspberri Pi.
 
 This is the list of Sensors/Modules that you can connect and it will be recognized immediately.
 - ***BME280*** (Bosch) - Temperature, Humidity and Pressure sensor. -> Connected by I2C via: GPIO8/SDA and GPIO9/SCL --- Be careful with the supply of this sensor, the BM280 is powered with 3.3V, if your module does not have a voltage regulator (some modules do not have it) the sensor can be damaged if you supply 5V.
@@ -14,6 +12,20 @@ This is the list of Sensors/Modules that you can connect and it will be recogniz
 - ***BH1750*** (ROHM) - Ambient Light Sensor. -> Connected by I2C via: GPIO8/SDA and GPIO9/SCL.
 - ***Generic Adjustable Sound Sensor with digital output*** (like *KY038 Module*) - -> Digital Signal on GPIOX, +5V in GPIOX (to enable data collection).
 - Also, you can connect a ***Green LED*** in GPIOX that blink when the data is sent to the Tangle, and a ***Red LED*** in GPIOX that will Blink in a certain way when it detects certain errors (totally optional)
+
+### Connecting the sensors
+
+The following diagram explains how each sensor of our stack must be connected to the Raspberry pins
+
+![I2T Sensors Stack on Raspberry](https://iot2tangle.io/assets/screenshots/Hardware_connections_Raspi-01.png)
+
+It is not necessary to have all the sensors listed here, the code is able to detect which sensors were connected. In the case of not connecting any sensor, the only real data that will be displayed on the Tangle will be the Internal Temperature of Raspberri Pi.
+
+
+## Setting up the Sensors Software
+
+This software is written entirely in C language. External libraries are used, such as cURL (HTML socket handling) and wiringpi (optimized library for Raspberry hardware handling), among others already integrated in Raspberry Pi OS.
+
 
 ### C Software Configuration:
 In the *Shell* of Raspberry Pi:
