@@ -70,7 +70,7 @@ const char* pass_WiFi = "pass_WiFi";
 
 #### 5) Compile the code with:
 ```
-make Raspi3-4-HTTP
+make Raspi-I2T-HTTP
 ```
 #### 6) Run:
 ```
