@@ -178,6 +178,6 @@ curl --location --request POST '127.0.0.1:8080/sensor_data'
 }'  
 `   
 
-IMPORTANT: The device will be authenticated through the "device" field in the request (in this case PI3SH), this has to match what was set as device_name in the config.json on the Gateway (see Configuration section above)!  
+IMPORTANT: The device will be authenticated through the **device id** field in the request (in this case Raspi-HTTP). This has to match what was set as device_name in the config.json on the Gateway (see Configuration section above)!  
   
 After a few seconds you should now see the data beeing recieved by the Subscriber!
