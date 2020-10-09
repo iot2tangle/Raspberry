@@ -126,9 +126,9 @@ Run the Streams Gateway:
 
 `cargo run --release`  
 
-This will compile and start the Streams Gateway. Note that the compilation process may take from 3 to 30 minutes (Pi3 took us around 30 mins, Pi4 8 mins and VPS or desktop machines will generally compile under the 5 mins) depending on the device you are using as host.
+This will compile and start the Streams Gateway. Note that the compilation process may take from 3 to 30 minutes (Pi3 took us around 15/25 mins, Pi4 8 mins and VPS or desktop machines will generally compile under the 5 mins) depending on the device you are using as host.
 
-You will only go through the compilation once and any restart done later will take a few seconds to have the Gateway working.
+You will only go through the compilation process once and any restart done later will take a few seconds to have the Gateway working.
 
 ![Streams Gateway receiving SenseHat data](https://iot2tangle.io/assets/screenshots/PiSenseHatSend.png)
 *The Gateway starts by giving us the channel id that will allow subscribers to access the channel data.*
