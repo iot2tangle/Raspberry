@@ -110,7 +110,7 @@ There you can also change ports and the IOTA Full Node used.
   
 ```
 {
-    "device_name": "PI3SH", 
+    "device_name": "Raspi-HTTP", 
     "port": 8080, 
     "node": "https://nodes.iota.cafe:443", 
     "mwm": 14,    
