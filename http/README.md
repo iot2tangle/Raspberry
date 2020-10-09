@@ -19,7 +19,7 @@ The following diagram explains how each sensor of our stack must be connected to
 
 ![I2T Sensors Stack on Raspberry](https://iot2tangle.io/assets/screenshots/Hardware_connections_Raspi-01.png)
 
-It is not necessary to have all the sensors listed here, the code is able to detect which sensors were connected. In the case of not connecting any sensor, the only real data that will be displayed on the Tangle will be the Internal Temperature of Raspberri Pi.
+**It is not necessary to have all the sensors listed here**, the code is able to detect which sensors were connected. In the case of not connecting any sensor, the only real data that will be displayed on the Tangle will be the Internal Temperature of Raspberri Pi.
 
 
 ## Setting up the Sensors Software
