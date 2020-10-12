@@ -26,9 +26,10 @@ bool check_bme280()
 	return true;
 }
 
-void init_bme280()
-{
-    fd_bme = wiringPiI2CSetup(0x76);
+void init_bme280(bool ft)
+{   
+	if (ft)
+		fd_bme = wiringPiI2CSetup(0x76);
 
     readCalibrationData(fd_bme, &cal);
 

@@ -64,10 +64,10 @@ void initPeripherals(long* c)
 	
     init_LEDs();
 
-    init_bme280();
-    init_mpu6050();
-    init_bh1750();
-    init_acoustic();
+    init_bme280(true);
+    init_mpu6050(true);
+    init_bh1750(true);
+    init_acoustic(true);
 }
 
 
@@ -97,10 +97,10 @@ void connectNetwork(struct device *z)
 
 void pnp_sensors()
 {
-    init_bme280();
-    init_mpu6050();	
-    init_bh1750();	
-    init_acoustic();
+    init_bme280(false);
+    init_mpu6050(false);	
+    init_bh1750(false);	
+    init_acoustic(false);
 }
 
 

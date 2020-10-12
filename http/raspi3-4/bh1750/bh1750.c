@@ -22,9 +22,10 @@ bool check_bh1750()
     	return true;
 }
 
-void init_bh1750()
+void init_bh1750(bool ft)
 {
-    fd_bh = wiringPiI2CSetup(0x23);
+	if (ft)
+		fd_bh = wiringPiI2CSetup(0x23);
 } 
 
 void print_bh1750()

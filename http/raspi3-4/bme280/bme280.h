@@ -88,7 +88,7 @@ typedef struct
 
 } bme280_raw_data;
 
-void init_bme280(void);
+void init_bme280(bool);
 bool check_bme280(void);
 char* get_bme280(int ind);
 void print_bme280(void);
