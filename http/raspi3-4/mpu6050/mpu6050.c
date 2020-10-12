@@ -19,9 +19,11 @@ bool check_mpu6050()
     	return true;
 }
 
-void init_mpu6050()
+void init_mpu6050(bool ft)
 {
-    fd_mpu = wiringPiI2CSetup(Device_Address);   /*Initializes I2C with device Address*/
+	if (ft)
+		fd_mpu = wiringPiI2CSetup(Device_Address);   /*Initializes I2C with device Address*/
+    
     wiringPiI2CWriteReg8 (fd_mpu, SMPLRT_DIV, 0x07);	/* Write to sample rate register */
     wiringPiI2CWriteReg8 (fd_mpu, PWR_MGMT_1, 0x01);	/* Write to power management register */
     wiringPiI2CWriteReg8 (fd_mpu, CONFIG, 0);		/* Write to Configuration register */

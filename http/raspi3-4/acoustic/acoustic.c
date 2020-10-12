@@ -21,12 +21,15 @@ bool check_acoustic()
 	return false;
 }
 
-void init_acoustic()
+void init_acoustic(bool ft)
 {
-    pullUpDnControl(ACOUSTIC_ENABLE, PUD_UP);
-    pinMode (ACOUSTIC_ENABLE, INPUT);
+	if (ft)
+	{
+		pullUpDnControl(ACOUSTIC_ENABLE, PUD_UP);
+		pinMode (ACOUSTIC_ENABLE, INPUT);
     
-    pinMode (ACOUSTIC_DATA, INPUT);
+		pinMode (ACOUSTIC_DATA, INPUT);
+	}
 }
 
 void print_acoustic()

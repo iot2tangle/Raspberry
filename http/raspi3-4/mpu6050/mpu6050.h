@@ -20,7 +20,7 @@
 
 bool check_mpu6050(void);
 short read_raw_data(int);
-void init_mpu6050(void);
+void init_mpu6050(bool);
 void print_mpu6050(void);
 char* get_mpu6050(int);
 
