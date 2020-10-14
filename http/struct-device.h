@@ -8,12 +8,14 @@
 struct device {
    const char *id;
 
+   const char *ep;
+   int ep_port;
+   const char *user_mqtt;
+   const char *pass_mqtt;   
+
    bool WiFi;
    const char *ssid;
    const char *pass;
-   
-   const char *ep;
-   int ep_port;
    
    bool isEnable[12];
    char d[12][10];    /* Sensors Data String */

@@ -15,6 +15,8 @@ void config(struct device *z)
 
     z->ep = endpoint;
     z->ep_port = port;
+    z->user_mqtt = user;
+    z->pass_mqtt = password;
 
     z->WiFi = isWifi;    /* In RaspberryPi it will be false, because the network connection is made outside the program by the Raspberry OS*/
     if (isWifi)
