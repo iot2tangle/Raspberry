@@ -3,8 +3,10 @@
 #include <stdbool.h>
 #include "struct-device.h"
 #include "config.h"
-#include "raspi3-4/raspi3-4-headers.h"
 
+#ifdef RASPI
+	#include "raspi3-4/raspi3-4-headers.h"
+#endif
 
 void config(struct device *z)
 {
@@ -39,7 +41,7 @@ void config(struct device *z)
     z->isEnable[10] = isEnable_Gyroscope_Y;
     z->isEnable[11] = isEnable_Gyroscope_Z;
 
-    z->s_name[0] = "InternalTemperature";   // In ESP8266 -> "InternalVoltage"
+    z->s_name[0] = "InternalTemperature"; 
     z->s_name[1] = "Temperature";
     z->s_name[2] = "Humidity";
     z->s_name[3] = "Pressure";
@@ -59,8 +61,10 @@ void config(struct device *z)
 void initPeripherals(long* c) 
 {
     *c = 0;		// Init counter
-	//if RaspberryPi
-    welcome_msg();
+    
+    #ifdef RASPI	
+    	welcome_msg();	// Printf in shell
+    #endif
 	
     init_LEDs();
 
@@ -109,10 +113,11 @@ void getData(struct device *z, long *c)
     int i;
     ++(*c);
 	
-    //if Raspberry PI
-    d_collect_msg( c );
-    print_sensors_state();
-	
+	#ifdef RASPI	// Printf in shell
+		d_collect_msg( c );
+		print_sensors_state();
+    #endif  
+
 	
     /* GET DATA INTERNAL TEMPERATURE */
     strcpy(z->d[0], get_internal_temp());
@@ -288,6 +293,10 @@ void generateJson(struct device *z)
 	strcat(z->json, "],\"device\": \"");
 	strcat(z->json, z->id);
 	strcat(z->json, "\",\"timestamp\": \"0\"}");	
+	
+	#ifdef RASPI	
+    	print_json(z->json);	// Printf in shell
+    #endif
 }
 
 bool sendtoEndpoint(struct device *z)

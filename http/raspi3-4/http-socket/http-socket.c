@@ -11,9 +11,6 @@ int isEndpoint;
 
 bool socket_sender(const char* endp, int p, const char* j, long t)
 {
-    printf("\nJSON: %s\n", j);
-    printf("\n	Sending Data to Tangle...\n");
-
     printf("			*** ");
 	
     curl_global_init(CURL_GLOBAL_ALL);
