@@ -1,4 +1,12 @@
-default:
+CC=gcc
+CFLAGS= -lwiringPi -lcurl -lm -I.
+DEPS = raspi3-4/basics.h raspi3-4/mpu6050/mpu6050.h raspi3-4/bh1750/bh1750.h raspi3-4/tIntern/tIntern.h raspi3-4/http-socket/http-socket.h raspi3-4/gpio/gpio.h raspi3-4/bme280/bme280.h raspi3-4/acoustic/acoustic.h
+OBJ = raspi3-4/basics.o raspi3-4/mpu6050/mpu6050.o raspi3-4/bh1750/bh1750.o raspi3-4/tIntern/tIntern.o raspi3-4/http-socket/http-socket.o raspi3-4/gpio/gpio.o raspi3-4/bme280/bme280.o raspi3-4/acoustic/acoustic.o main.o
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+help:
 	@echo "\n' make target '"
 	@echo "\nPlease put one of the following target:"
 	@echo "-> Raspi-HTTP"
@@ -7,15 +15,18 @@ default:
 	@echo "-> ESP8266-HTTP"
 	@echo ""
 
-Raspi-HTTP:
+Raspi-HTTP: $(OBJ)
 	@echo "\nCompiling..."
-	gcc -std=c11 -D_DEFAULT_SOURCE -o Raspi-I2T raspi3-4/basics.c raspi3-4/mpu6050/mpu6050.c raspi3-4/bh1750/bh1750.c raspi3-4/tIntern/tIntern.c raspi3-4/http-socket/http-socket.c raspi3-4/gpio/gpio.c raspi3-4/bme280/bme280.c raspi3-4/acoustic/acoustic.c main.c -lwiringPi -lcurl -lm
-	@echo "\nCompiled Finished, now you can run your code with: '$ ./Raspi-I2T'\n"
+	$(CC) -o $@ $^ $(CFLAGS) -DRASPI -DHTTP
+	@echo "\nCompiled Finished, now you can run your code with: '$ ./Raspi-HTTP'\n"
+
 Raspi-MQTT:
 	@ echo "Not yet :)"
 
 Raspi-BLU:
 	@ echo "Not yet :)"
-			
-ESP8266-HTTP:
-	@ echo "Not yet :)"
+
+
+.PHONY: clean
+clean:
+	rm -rf *.o
