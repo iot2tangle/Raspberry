@@ -1,6 +1,5 @@
-#ifndef __CONFIG_H_
-#define __CONFIG_H_
-#include <stdbool.h>
+#ifndef _CONFIG_H
+#define _CONFIG_H
 
 /* ----- CONFIG FILE ----- */
 
@@ -12,9 +11,9 @@ const char* id_name = "Raspi-I2T";
 /* Endpoint/Broker Configuration */
 const char* endpoint = "192.168.1.134/sensor_data";    /* Endpoint (HTTP) or Broker address (MQTT), must not include 'http://xxx' or 'tcp://xxx' */
 int port = 8080;
-const char* user = "user";		/* Only for MQTT Protocol, leave empty in HTTP */
-const char* password = "pass";	/* Only for MQTT Protocol, leave empty in HTTP */
-
+const char* topic = "iot2tangle";	/* Only for MQTT Protocol, leave empty in HTTP */
+const char* user = "user";			/* Only for MQTT Protocol, leave empty in HTTP */
+const char* password = "pass";		/* Only for MQTT Protocol, leave empty in HTTP */
 
 /* Network Configuration (Only for microcontrollers) */
 bool isWifi = false; /* This is 'true' for microcontrollers like ESP32 or STM32. In RaspberryPi it will be 'false', because the network connection is made outside the program by the Raspberry OS */

@@ -12,6 +12,7 @@ struct device {
    int ep_port;
    const char *user_mqtt;
    const char *pass_mqtt;   
+   const char *top;    
 
    bool WiFi;
    const char *ssid;
