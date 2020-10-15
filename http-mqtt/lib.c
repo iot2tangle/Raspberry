@@ -95,7 +95,7 @@ void connectNetwork(struct device *z)
 //  while ( !connectAttempt() )    /* Attempt to connect to the network via WiFi, in RaspberryPi only check connection to the network. */
 //  	error(1);
 
-	if ( !isEndpointOk(z->ep, z->ep_port) )     /* Check Endpoint */
+	if ( !isEndpointOk(z->ep, z->ep_port, z->user_mqtt, z->pass_mqtt) )     /* Check Endpoint */
 	{	
 		udelay_basics ( 100000 );
 		led_blinks(1, 3, 70000);	// Blink in green RED - ERROR 1 (Bad connection with the endpoint);
@@ -304,7 +304,7 @@ void generateJson(struct device *z)
 
 bool sendtoEndpoint(struct device *z)
 {
-    bool b_socket = socket_sender(z->ep, z->ep_port, z->json, z->interv);
+    bool b_socket = socket_sender(z->ep, z->ep_port, z->top, z->user_mqtt, z->pass_mqtt, z->json, z->interv);
     if (b_socket)
 		led_blinks(0, 2, 60000);	// Blink in green LED;
     else

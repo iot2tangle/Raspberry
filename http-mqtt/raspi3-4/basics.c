@@ -20,7 +20,10 @@ void welcome_msg()
     
     #ifdef HTTP	
     	printf("  HTTP  ----\n\n");	// Printf in shell
-    #endif     
+    #endif
+    #ifdef MQTT	
+    	printf("  MQTT  ----\n\n");	// Printf in shell
+    #endif 
 } 
 
 void d_collect_msg(long* n)

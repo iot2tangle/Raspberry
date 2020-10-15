@@ -13,4 +13,8 @@
 	#include "http-socket/http-socket.h"
 #endif
 
+#ifdef MQTT
+	#include "mqtt-socket/mqtt-socket.h"
+#endif
+
 #endif
