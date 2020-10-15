@@ -103,7 +103,7 @@ Make sure you also have the build dependencies installed, if not run:
 
 Get the Streams WiFi Gateway repository
 
-`git clone https://github.com/iot2tangle/Streams-wifi-gateway`
+`git clone https://github.com/iot2tangle/Streams-http-gateway`
 
 Navigate to the **Streams-wifi-gateway** directory and edit the **config.json** file to define your device name (it must match what you set on the Sense Hat config).
 There you can also change ports and the IOTA Full Node used.  
