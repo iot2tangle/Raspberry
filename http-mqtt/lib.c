@@ -3,7 +3,13 @@
 #include <stdbool.h>
 #include "struct-device.h"
 #include "config.h"
-#include "raspi3-4/raspi3-4-headers.h"
+
+#ifdef RASPI
+	#include "raspi3-4/raspi3-4-headers.h"
+#endif
+#ifdef MYDEVICE
+	#include "my-device/my-device-headers.h"
+#endif
 
 
 void config(struct device *z)
@@ -13,6 +19,9 @@ void config(struct device *z)
 
     z->ep = endpoint;
     z->ep_port = port;
+    z->user_mqtt = user;
+    z->pass_mqtt = password;
+    z->top = topic;
 
     z->WiFi = isWifi;    /* In RaspberryPi it will be false, because the network connection is made outside the program by the Raspberry OS*/
     if (isWifi)
@@ -39,7 +48,7 @@ void config(struct device *z)
     z->isEnable[10] = isEnable_Gyroscope_Y;
     z->isEnable[11] = isEnable_Gyroscope_Z;
 
-    z->s_name[0] = "InternalTemperature";   // In ESP8266 -> "InternalVoltage"
+    z->s_name[0] = "InternalTemperature"; 
     z->s_name[1] = "Temperature";
     z->s_name[2] = "Humidity";
     z->s_name[3] = "Pressure";
@@ -59,8 +68,10 @@ void config(struct device *z)
 void initPeripherals(long* c) 
 {
     *c = 0;		// Init counter
-	//if RaspberryPi
-    welcome_msg();
+    
+    #ifdef SHELLPRINT
+    	welcome_msg();	// Printf in shell
+    #endif
 	
     init_LEDs();
 
@@ -88,7 +99,7 @@ void connectNetwork(struct device *z)
 //  while ( !connectAttempt() )    /* Attempt to connect to the network via WiFi, in RaspberryPi only check connection to the network. */
 //  	error(1);
 
-	if ( !isEndpointOk(z->ep, z->ep_port) )     /* Check Endpoint */
+	if ( !isEndpointOk(z->ep, z->ep_port, z->user_mqtt, z->pass_mqtt) )     /* Check Endpoint */
 	{	
 		udelay_basics ( 100000 );
 		led_blinks(1, 3, 70000);	// Blink in green RED - ERROR 1 (Bad connection with the endpoint);
@@ -109,10 +120,11 @@ void getData(struct device *z, long *c)
     int i;
     ++(*c);
 	
-    //if Raspberry PI
-    d_collect_msg( c );
-    print_sensors_state();
-	
+    #ifdef SHELLPRINT	// Printf in shell
+	d_collect_msg( c );
+	print_sensors_state();
+    #endif  
+
 	
     /* GET DATA INTERNAL TEMPERATURE */
     strcpy(z->d[0], get_internal_temp());
@@ -288,11 +300,15 @@ void generateJson(struct device *z)
 	strcat(z->json, "],\"device\": \"");
 	strcat(z->json, z->id);
 	strcat(z->json, "\",\"timestamp\": \"0\"}");	
+	
+    #ifdef SHELLPRINT	
+    	print_json(z->json);	// Printf in shell
+    #endif
 }
 
 bool sendtoEndpoint(struct device *z)
 {
-    bool b_socket = socket_sender(z->ep, z->ep_port, z->json, z->interv);
+    bool b_socket = socket_sender(z->ep, z->ep_port, z->top, z->user_mqtt, z->pass_mqtt, z->json, z->interv);
     if (b_socket)
 		led_blinks(0, 2, 60000);	// Blink in green LED;
     else

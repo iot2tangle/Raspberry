@@ -9,11 +9,8 @@
 CURL *handle;
 int isEndpoint;
 
-bool socket_sender(const char* endp, int p, const char* j, long t)
+bool socket_sender(const char* endp, int p, const char* _top, const char* _us, const char* _pass, const char* j, long t)
 {
-    printf("\nJSON: %s\n", j);
-    printf("\n	Sending Data to Tangle...\n");
-
     printf("			*** ");
 	
     curl_global_init(CURL_GLOBAL_ALL);
@@ -51,7 +48,7 @@ bool socket_sender(const char* endp, int p, const char* j, long t)
     }
 }
 
-bool isEndpointOk(const char* endp, int p)
+bool isEndpointOk(const char* endp, int p, const char* _us, const char* _pass)
 {
     curl_global_init(CURL_GLOBAL_ALL);
     handle = curl_easy_init();
