@@ -15,7 +15,7 @@ This is the list of Sensors/Modules that you can connect and it will be recogniz
 
 ### Connecting the sensors
 
-The following diagram explains how each sensor of our stack must be connected to the Raspberry pins
+The following diagram explains how each sensor of our stack must be connected to the Raspberry pins:
 
 ![I2T Sensors Stack on Raspberry](https://iot2tangle.io/assets/screenshots/Hardware_connections_Raspi-01.png)
 
@@ -58,7 +58,7 @@ cd Raspberry/http-mqtt
 ```
 #### 4) Edit the file config.h
 
-Edit the **config.h** file to define the values for your configuration: The endpoint or broker adn port that will have the I2T Streams Gateway running, the DeviceId, and others configurations. The Device Id you define here must be exactly what you set on the Gateway configuration file. 
+Edit the **config.h** file to define the values for your configuration: The *endpoint* or *broker address* and *port* that will have the *I2T Streams Gateway* running, the *Device Id*, and others configurations. The *Device Id* you define here must be exactly what you set on the *Gateway configuration file*. 
 
 Keep in mind that any changes on the config file will require to recompile the code.
 
@@ -101,7 +101,7 @@ or
 
 If the *I2T Streams Gateway* is configured correctly (we will explain this next), ***you will be sending data to Tangle via Streams***. 
 
-The following capture shows a Raspberry with a BME280 connected (note how the sensor is detected automatically):
+The following capture shows a *Raspberry Pi* with a *BME280* connected (note how the sensor is detected automatically):
 
 ![Raspberry with BME280 sending data to the Tangle](https://iot2tangle.io/assets/screenshots/PiStackSend.png)
 
@@ -109,7 +109,7 @@ Here we can see the result when all the sensors have been connected:
 
 --- Photo ---
 
-In MQTT we get something similar.
+In *MQTT* we get something similar.
 	
 # Setting up the Streams Gateway
 
