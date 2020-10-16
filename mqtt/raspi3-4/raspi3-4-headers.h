@@ -14,7 +14,7 @@
 #endif
 
 #ifdef MQTT
-	#include "http-socket/mqtt-socket.h"
+	#include "mqtt-socket/mqtt-socket.h"
 #endif
 
 #endif

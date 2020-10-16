@@ -54,7 +54,7 @@ bool socket_sender(const char* endp, int p, const char* top, const char* us, con
     printf("			*** ");
     if (rc == 0)	
 		{
-			printf("Data Sent to Tangle!\n");
+			printf("Data Published in the Broker!\n");
 			return true;
 		} 
     else
