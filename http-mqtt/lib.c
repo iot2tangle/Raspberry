@@ -7,6 +7,10 @@
 #ifdef RASPI
 	#include "raspi3-4/raspi3-4-headers.h"
 #endif
+#ifdef MYDEVICE
+	#include "my-device/my-device-headers.h"
+#endif
+
 
 void config(struct device *z)
 {
@@ -65,7 +69,7 @@ void initPeripherals(long* c)
 {
     *c = 0;		// Init counter
     
-    #ifdef RASPI	
+    #ifdef SHELLPRINT
     	welcome_msg();	// Printf in shell
     #endif
 	
@@ -116,9 +120,9 @@ void getData(struct device *z, long *c)
     int i;
     ++(*c);
 	
-	#ifdef RASPI	// Printf in shell
-		d_collect_msg( c );
-		print_sensors_state();
+    #ifdef SHELLPRINT	// Printf in shell
+	d_collect_msg( c );
+	print_sensors_state();
     #endif  
 
 	
@@ -297,7 +301,7 @@ void generateJson(struct device *z)
 	strcat(z->json, z->id);
 	strcat(z->json, "\",\"timestamp\": \"0\"}");	
 	
-	#ifdef RASPI	
+    #ifdef SHELLPRINT	
     	print_json(z->json);	// Printf in shell
     #endif
 }

@@ -8,11 +8,11 @@ default:
 
 Raspi-HTTP:
 	@echo "\nCompiling..."
-	gcc -std=c11 -D_DEFAULT_SOURCE -o Raspi-HTTP raspi3-4/basics.c raspi3-4/mpu6050/mpu6050.c raspi3-4/bh1750/bh1750.c raspi3-4/tIntern/tIntern.c raspi3-4/http-socket/http-socket.c raspi3-4/gpio/gpio.c raspi3-4/bme280/bme280.c raspi3-4/acoustic/acoustic.c main.c -lwiringPi -lcurl -lm -DRASPI -DHTTP
+	gcc -std=c11 -D_DEFAULT_SOURCE -o Raspi-HTTP raspi3-4/basics.c raspi3-4/mpu6050/mpu6050.c raspi3-4/bh1750/bh1750.c raspi3-4/tIntern/tIntern.c raspi3-4/http-socket/http-socket.c raspi3-4/gpio/gpio.c raspi3-4/bme280/bme280.c raspi3-4/acoustic/acoustic.c main.c -lwiringPi -lcurl -lm -DRASPI -DHTTP -DSHELLPRINT
 	@echo "\nCompiled Finished, now you can run your code with: '$ ./Raspi-HTTP'\n"
 Raspi-MQTT:
 	@echo "\nCompiling..."
-	gcc -std=c11 -D_DEFAULT_SOURCE -o Raspi-MQTT raspi3-4/basics.c raspi3-4/mpu6050/mpu6050.c raspi3-4/bh1750/bh1750.c raspi3-4/tIntern/tIntern.c raspi3-4/mqtt-socket/mqtt-socket.c raspi3-4/gpio/gpio.c raspi3-4/bme280/bme280.c raspi3-4/acoustic/acoustic.c main.c -lwiringPi -lpaho-mqtt3c -lm -DRASPI -DMQTT
+	gcc -std=c11 -D_DEFAULT_SOURCE -o Raspi-MQTT raspi3-4/basics.c raspi3-4/mpu6050/mpu6050.c raspi3-4/bh1750/bh1750.c raspi3-4/tIntern/tIntern.c raspi3-4/mqtt-socket/mqtt-socket.c raspi3-4/gpio/gpio.c raspi3-4/bme280/bme280.c raspi3-4/acoustic/acoustic.c main.c -lwiringPi -lpaho-mqtt3c -lm -DRASPI -DMQTT -DSHELLPRINT
 	@echo "\nCompiled Finished, now you can run your code with: '$ ./Raspi-MQTT'\n"
 Raspi-BLU:
 	@ echo "Not yet :)"
