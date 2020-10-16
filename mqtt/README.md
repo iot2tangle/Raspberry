@@ -1,4 +1,4 @@
-# Raspberry PI3/4 with I2T Sensors Stack
+# Raspberry PI3/4 with I2T Sensors Stack -- MQTT Protocol
 
 The *Raspberry Pi* is a series of small single-board computers developed in the United Kingdom by the *Raspberry Pi Foundation*. Early on, the Raspberry Pi project leaned towards the promotion of teaching basic computer science in schools and in developing countries.
 
@@ -24,7 +24,7 @@ The following diagram explains how each sensor of our stack must be connected to
 
 ## Setting up the Sensors Software
 
-This software is written entirely in **C language**. External libraries are used, such as ***wiringpi*** (optimized library for Raspberry hardware handling), ***cURL*** (HTML Client library), ***paho.mqtt.c*** (MQTT Client library) and among others already integrated in *Raspberry Pi OS*.
+This software is written entirely in **C language**. External libraries are used, such as ***wiringpi*** (optimized library for Raspberry hardware handling), ***paho.mqtt.c*** (MQTT Client library) and among others already integrated in *Raspberry Pi OS*.
 
 
 ### C Software Configuration:
@@ -34,11 +34,7 @@ In *Shell* of Raspberry Pi:
 ```
 sudo apt-get install wiringpi
 ```
-##### HTTP Dependencies
-```
-sudo apt-get install libcurl4-openssl-dev
-```
-##### MQTT Dependencies
+and the MQTT dependencies:
 ```
 git clone https://github.com/eclipse/paho.mqtt.c.git
 cd paho.mqtt.c
@@ -54,23 +50,23 @@ Use the down arrow to select 5: *'Interfacing Options'*, again use the arrow and
 #### 3) Copy the repository to the local file system of your Raspberry.
 ```
 git clone https://github.com/iot2tangle/Raspberry.git
-cd Raspberry/http-mqtt
+cd Raspberry/mqtt
 ```
 #### 4) Edit the file config.h
 
-Edit the **config.h** file to define the values for your configuration: The *endpoint* or *broker address* and *port* that will have the *I2T Streams Gateway* running, the *Device Id*, and others configurations. The *Device Id* you define here must be exactly what you set on the *Gateway configuration file*. 
+Edit the **config.h** file to define the values for your configuration: The *broker address* and *port* that will have the *I2T Streams Gateway* running, *username* and *password* (if your broker needs), the *Device Id*, and others configurations. The *Device Id* you define here must be between the devices you set in on the *Gateway configuration file*.
 
 Keep in mind that any changes on the config file will require to recompile the code.
 
 ```
-const char* id_name = "Raspi-I2T";
+const char* id_name = "Raspi-MQTT";
 
-/* Endpoint/Broker Configuration */
-const char* endpoint = "192.168.1.113/sensor_data";    /* Endpoint (HTTP) or Broker address (MQTT), must NOT include 'http://xxx' or 'tcp://xxx' */
-int port = 8080;
-const char* topic = "iot2tangle";	/* Only for MQTT Protocol, leave default in HTTP */
-const char* user = "user";		/* Only for MQTT Protocol, leave default in HTTP */
-const char* password = "pass";		/* Only for MQTT Protocol, leave default in HTTP */
+/* Broker Configuration */
+const char* endpoint = "mqtt.iot2tangle.link";  /* Broker address (MQTT), must NOT include 'http://xxx' or 'tcp://xxx' */
+int port = 8883;
+const char* topic = "iot2tangle";		/* MQTT topic */
+const char* user = "mqtti2t";			/* MQTT user */
+const char* password = "integrateeverything";	/* MQTT password */
 
 /* Enable Sensors */
 bool isEnable_TemperatureIntern = true;
@@ -84,22 +80,14 @@ long interval = 30;    /* Time in seconds between */
 
 #### 5) Compile the code with:
 ```
-make Raspi-HTTP
-```
-or
-```
-make Raspi-MQTT
+make
 ```
 #### 6) Run:
-```
-./Raspi-HTTP
-```
-or
 ```
 ./Raspi-MQTT
 ```
 
-If the *I2T Streams Gateway* is configured correctly (we will explain this next), ***you will be sending data to Tangle via Streams***. 
+If the *I2T Streams MQTT Gateway* is configured correctly (we will explain this next), ***you will be sending data to Tangle via Streams***. 
 
 The following capture shows a *Raspberry Pi* with a *BME280* connected (note how the sensor is detected automatically):
 
@@ -109,9 +97,8 @@ Here we can see the result when all the sensors have been connected:
 
 ![Raspberry with all sensors sending data to the Tangle](https://i.postimg.cc/XvsxTjcw/Screenshot-from-2020-10-16-11-34-46.png)
 
-In *MQTT* we get something similar.
 	
-# Setting up the Streams Gateway
+# Setting up the Streams MQTT Gateway
 
 ## Preparation
 
@@ -123,21 +110,16 @@ Make sure you also have the build dependencies installed, if not run:
 
 `sudo apt install build-essential`  
 `sudo apt install pkg-config`  
-`sudo apt install libssl-dev`  
+`sudo apt install libssl-dev` 
+`sudo apt install cmake`
 `sudo apt update`  
 
 ## Installing the Streams Gateway
-Get the Streams Gateway repository
-### HTTP Gateway
-https://github.com/iot2tangle/Streams-http-gateway
-
-`git clone https://github.com/iot2tangle/Streams-http-gateway`
-### MQTT Gateway
+Get the Streams MQTT Gateway repository
 https://github.com/iot2tangle/Streams-mqtt-gateway
-
 `git clone https://github.com/iot2tangle/Streams-mqtt-gateway`
 
-Navigate to the root of **Streams-xxxx-gateway** directory and edit the **config.json** file to define yours *device names*, *endopoint* or *broker address*, *ports*, you can also change the IOTA Full Node used, among others.
+Navigate to the root of **Streams-MQTT-gateway** directory and edit the **config.json** file to define yours *device names*, *broker address*, *ports*, you can also change the IOTA Full Node used, among others.
 
 ## Start the Streams Server
 
