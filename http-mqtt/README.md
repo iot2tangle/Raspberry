@@ -103,11 +103,11 @@ If the *I2T Streams Gateway* is configured correctly (we will explain this next)
 
 The following capture shows a *Raspberry Pi* with a *BME280* connected (note how the sensor is detected automatically):
 
-![Raspberry with BME280 sending data to the Tangle](https://iot2tangle.io/assets/screenshots/PiStackSend.png)
+![Raspberry with BME280 sending data to the Tangle](https://i.postimg.cc/cH6TWpXP/Screenshot-from-2020-10-16-11-33-05.png)
 
 Here we can see the result when all the sensors have been connected:
 
---- Photo ---
+![Raspberry with all sensors sending data to the Tangle](https://i.postimg.cc/XvsxTjcw/Screenshot-from-2020-10-16-11-34-46.png)
 
 In *MQTT* we get something similar.
 	
@@ -127,24 +127,17 @@ Make sure you also have the build dependencies installed, if not run:
 `sudo apt update`  
 
 ## Installing the Streams Gateway
+Get the Streams Gateway repository
+### HTTP Gateway
+https://github.com/iot2tangle/Streams-http-gateway
 
-Get the Streams WiFi Gateway repository
+`git clone https://github.com/iot2tangle/Streams-http-gateway`
+### MQTT Gateway
+https://github.com/iot2tangle/Streams-mqtt-gateway
 
-`git clone https://github.com/iot2tangle/Streams-wifi-gateway`
+`git clone https://github.com/iot2tangle/Streams-mqtt-gateway`
 
-Navigate to the **Streams-wifi-gateway** directory and edit the **config.json** file to define your device name (it must match what you set on the Sense Hat config).
-There you can also change ports and the IOTA Full Node used.  
-
-  
-```
-{
-    "device_name": "Raspi-I2T", 
-    "port": 8080, 
-    "node": "https://nodes.iota.cafe:443", 
-    "mwm": 14,    
-    "local_pow": false     
-}
-```
+Navigate to the root of **Streams-xxxx-gateway** directory and edit the **config.json** file to define yours *device names*, *endopoint* or *broker address*, *ports*, you can also change the IOTA Full Node used, among others.
 
 ## Start the Streams Server
 
@@ -154,58 +147,19 @@ Run the Streams Gateway:
 
 `cargo run --release`  
 
-This will compile and start the Streams Gateway. Note that the compilation process may take from 3 to 25 minutes (Pi3 took us around 15/25 mins, Pi4 8 mins and VPS or desktop machines will generally compile under the 5 mins) depending on the device you are using as host.
-
+This will compile and start the *Streams Gateway*. Note that the compilation process may take from 3 to 25 minutes (Pi3 took us around 15/25 mins, Pi4 8 mins and VPS or desktop machines will generally compile under the 5 mins) depending on the device you are using as host.
 You will only go through the compilation process once and any restart done later will take a few seconds to have the Gateway working.
 
-![Streams Gateway receiving SenseHat data](https://iot2tangle.io/assets/screenshots/PiSenseHatSend.png)
-*The Gateway starts by giving us the channel id that will allow subscribers to access the channel data.*
+Once started, the ***Channel Id*** will be displayed, and the gateway will be open waiting for data to send to the Tangle.
+
+![Streams Gateway receiving data](https://i.postimg.cc/zfz0tbWz/Screenshot-from-2020-10-16-11-44-59.png)
+*The Channel Id that will allow subscribers to access the channel data.*
 
 ### Reading messages from the Tangle
 
-Open a new console and start a subscriber using the Channel Id printed by the Gateway (see example above):  
+You can read the received messages directly from the "I2T Explorer": https://explorer.iot2tangle.io/ using the Channel Id printed by the Gateway in shell.   
 
-`cargo run --release --example subscriber <your_channel_root> `  
+![I2T Explorer](https://i.postimg.cc/wTNf7dgp/Screenshot-from-2020-10-16-11-46-16.png)
 
-![Streams Gateway receiving SenseHat data](https://iot2tangle.io/assets/screenshots/PiSenseHatGet.png)
 
-### Testing without sensors
-
-To send data to the server you can use Postman, or like in this case cURL, make sure the port is the same as in the config.json file:  
-
-`  
-curl --location --request POST '127.0.0.1:8080/sensor_data'   
---header 'Content-Type: application/json'   
---data-raw '{
-    "iot2tangle": [
-        {
-            "sensor": "Gyroscope",
-            "data": [
-                {
-                    "x": "4514"
-                },
-                {
-                    "y": "244"
-                },
-                {
-                    "z": "-1830"
-                }
-            ]
-        },
-        {
-            "sensor": "Acoustic",
-            "data": [
-                {
-                    "mp": "1"
-                }
-            ]
-        }
-    ],  
-    "device": "PI3SH",  
-    "timestamp": "1558511111"  
-}'  
-`   
-
-IMPORTANT: The device will be authenticated through the **device id** field in the request (in this case Raspi-HTTP). This has to match what was set as device_name in the config.json on the Gateway (see Configuration section above)!  
-  
-After a few seconds you should now see the data beeing recieved by the Subscriber!
+*For inquiries, improvements or errors detected, please start an issue in this repository.*
