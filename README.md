@@ -18,4 +18,7 @@ This is the list of Sensors/Modules that you can connect and it will be recogniz
 - Also, you can connect a ***Green LED*** that blink when the data is sent to the Tangle, and a ***Red LED*** that will Blink in a certain way when it detects certain errors (totally optional).
 
 ## Available connectivity
-- **[HTTP](https://github.com/iot2tangle/Raspberry/tree/main/http)** (Raspberry will send the sensors data through HTTP)
+- **[HTTP](https://github.com/iot2tangle/Raspberry/tree/main/http-mqtt)** (Raspberry will send the sensors data through HTTP to **[I2T HTTP Gateway](https://github.com/iot2tangle/Streams-http-gateway)**)
+- **[MQTT](https://github.com/iot2tangle/Raspberry/tree/main/http-mqtt)** (Raspberry will send the sensors data through MQTT to **[I2T MQTT Gateway](https://github.com/iot2tangle/Streams-mqtt-gateway)**)
+
+
