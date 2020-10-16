@@ -91,11 +91,11 @@ If the *I2T Streams MQTT Gateway* is configured correctly (we will explain this 
 
 The following capture shows a *Raspberry Pi* with a *BME280* connected (note how the sensor is detected automatically):
 
-![Raspberry with BME280 sending data to the Tangle](https://i.postimg.cc/cH6TWpXP/Screenshot-from-2020-10-16-11-33-05.png)
+![Raspberry with BME280 sending data to the Tangle](https://i.postimg.cc/RC2rC9K4/Screenshot-from-2020-10-16-18-48-53.png)
 
 Here we can see the result when all the sensors have been connected:
 
-![Raspberry with all sensors sending data to the Tangle](https://i.postimg.cc/XvsxTjcw/Screenshot-from-2020-10-16-11-34-46.png)
+![Raspberry with all sensors sending data to the Tangle](https://i.postimg.cc/7YzFfcn7/Screenshot-from-2020-10-16-18-42-12.png)
 
 	
 # Setting up the Streams MQTT Gateway
@@ -134,7 +134,7 @@ You will only go through the compilation process once and any restart done later
 
 Once started, the ***Channel Id*** will be displayed, and the gateway will be open waiting for data to send to the Tangle.
 
-![Streams Gateway receiving data](https://i.postimg.cc/zfz0tbWz/Screenshot-from-2020-10-16-11-44-59.png)
+![Streams Gateway receiving data](https://i.postimg.cc/pVmbty9s/Screenshot-from-2020-10-16-19-05-09.png)
 *The Channel Id that will allow subscribers to access the channel data.*
 
 ### Reading messages from the Tangle
