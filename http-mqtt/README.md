@@ -1,17 +1,17 @@
 # Raspberry PI3/4 with I2T Sensors Stack
 
-The Raspberry Pi is a series of small single-board computers developed in the United Kingdom by the Raspberry Pi Foundation. Early on, the Raspberry Pi project leaned towards the promotion of teaching basic computer science in schools and in developing countries
+The *Raspberry Pi* is a series of small single-board computers developed in the United Kingdom by the *Raspberry Pi Foundation*. Early on, the Raspberry Pi project leaned towards the promotion of teaching basic computer science in schools and in developing countries.
 
 ## Setting up your Raspberry with the I2T Sensors Stack
 
 The following installation is done on **"Raspberry Pi OS"** (formerly Raspbian) and works for *Raspberry Pi 3* and *Raspberry Pi 4*.
 
 This is the list of Sensors/Modules that you can connect and it will be recognized immediately.
-- ***BME280*** (Bosch) - Temperature, Humidity and Pressure sensor. -> Connected by I2C via: GPIO2/SDA and GPIO3/SCL --- Be careful with the supply of this sensor, the BM280 is powered with 3.3V, if your module does not have a voltage regulator (some modules do not have it) the sensor can be damaged if you supply 5V.
-- ***MPU6050*** (InvenSense-TDK) - Acelerometer and Gyroscope 6-axis. -> Connected by I2C via: GPIO8/SDA and GPIO9/SCL.
-- ***BH1750*** (ROHM) - Ambient Light Sensor. -> Connected by I2C via: GPIO8/SDA and GPIO9/SCL.
-- ***Generic Adjustable Sound Sensor with digital output*** (like *KY038 Module*) - -> Digital Signal on GPIO24, +5V in GPIO23 (to enable data collection).
-- Also, you can connect a ***Green LED*** in GPIO17 that blink when the data is sent to the Tangle, and a ***Red LED*** in GPIO27 that will Blink in a certain way when it detects certain errors (totally optional)
+- ***BME280*** (*Bosch*) - Temperature, Humidity and Pressure sensor. -> Connected by *I2C Bus* via: *GPIO2/SDA* and *GPIO3/SCL* --- Be careful with the supply of this sensor, the BM280 is powered with 3.3V, if your module does not have a voltage regulator (some modules do not have it) the sensor can be damaged if you supply 5V.
+- ***MPU6050*** (*InvenSense-TDK*) - Acelerometer and Gyroscope 6-axis. -> Connected by *I2C Bus* via: *GPIO8/SDA* and *GPIO9/SCL*.
+- ***BH1750*** (*ROHM*) - Ambient Light Sensor. -> Connected by *I2C Bus* via: *GPIO8/SDA* and *GPIO9/SCL*.
+- ***Generic Adjustable Sound Sensor with digital output*** (like *KY038 Module*) - -> Digital Signal on *GPIO24*, +5V in *GPIO23* (to enable data collection).
+- Also, you can connect a ***Green LED*** in *GPIO17* that blink when the data is sent to the Tangle, and a ***Red LED*** in *GPIO27* that will Blink in a certain way when it detects certain errors (totally optional)
 
 ### Connecting the sensors
 
@@ -19,12 +19,12 @@ The following diagram explains how each sensor of our stack must be connected to
 
 ![I2T Sensors Stack on Raspberry](https://iot2tangle.io/assets/screenshots/Hardware_connections_Raspi-01.png)
 
-**It is not necessary to have all the sensors listed here**, the code is able to detect which sensors were connected. In the case of not connecting any sensor, the only real data that will be displayed on the Tangle will be the Internal Temperature of Raspberri Pi.
+**It is not necessary to have all the sensors listed here**, the code is able to detect which sensors were connected. In the case of not connecting any sensor, the only real data that will be displayed on the Tangle will be the Internal Temperature of *Raspberri Pi*.
 
 
 ## Setting up the Sensors Software
 
-This software is written entirely in C language. External libraries are used, such as cURL (HTML socket handling) and wiringpi (optimized library for Raspberry hardware handling), among others already integrated in Raspberry Pi OS.
+This software is written entirely in **C language**. External libraries are used, such as ***wiringpi*** (optimized library for Raspberry hardware handling), ***cURL*** (HTML Client library), ***paho.mqtt.c*** (MQTT Client library) and among others already integrated in *Raspberry Pi OS*.
 
 
 ### C Software Configuration:
@@ -54,10 +54,11 @@ Use the down arrow to select 5: *'Interfacing Options'*, again use the arrow and
 #### 3) Copy the repository to the local file system of your Raspberry.
 ```
 git clone https://github.com/iot2tangle/Raspberry.git
+cd Raspberry/http-mqtt
 ```
 #### 4) Edit the file config.h
 
-Navigate to the **Raspberry/http** directory and edit the **config.h** file to define the values for your configuration to match your WiFi data, the endpoint that will have the IOTA Streams Gateway running and the Device Id. The Device Id you define here must be exactly what you set on the Gateway configuration file. 
+Edit the **config.h** file to define the values for your configuration: The endpoint or broker adn port that will have the I2T Streams Gateway running, the DeviceId, and others configurations. The Device Id you define here must be exactly what you set on the Gateway configuration file. 
 
 Keep in mind that any changes on the config file will require to recompile the code.
 
@@ -98,11 +99,17 @@ or
 ./Raspi-MQTT
 ```
 
-If the Streams Gateway endpoint is configured correctly (we will explain this next), you will be sending data to the Tangle via Streams. The following capture shows a Raspberry with a BME280 connected (note how the sensor is detected automatically)
+If the *I2T Streams Gateway* is configured correctly (we will explain this next), ***you will be sending data to Tangle via Streams***. 
 
+The following capture shows a Raspberry with a BME280 connected (note how the sensor is detected automatically):
 
 ![Raspberry with BME280 sending data to the Tangle](https://iot2tangle.io/assets/screenshots/PiStackSend.png)
 
+Here we can see the result when all the sensors have been connected:
+
+--- Photo ---
+
+In MQTT we get something similar.
 	
 # Setting up the Streams Gateway
 
