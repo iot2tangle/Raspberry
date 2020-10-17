@@ -4,6 +4,8 @@
 #include "struct-device.h"
 #include "config.h"
 
+
+
 #ifdef RASPI
 	#include "raspi3-4/raspi3-4-headers.h"
 #endif
@@ -13,27 +15,23 @@
 
 
 void config(struct device *z)
-{
+{ 
     /* User assignments */
     z->id = id_name;
 
     z->ep = endpoint;
     z->ep_port = port;
-    z->user_mqtt = user;
-    z->pass_mqtt = password;
-    z->top = topic;
+    
+    #ifdef MQTT
+	    z->user_mqtt = user;
+	    z->pass_mqtt = password;
+	    z->top = topic;
+    #endif
 
-    z->WiFi = isWifi;    /* In RaspberryPi it will be false, because the network connection is made outside the program by the Raspberry OS*/
-    if (isWifi)
-    {
-        z->ssid = ssid_WiFi;
-        z->pass = pass_WiFi;
-    }
-    else
-    {
-        z->ssid = "";
-        z->pass = "";
-    }
+    #ifdef MICROCONTROLLER
+        z->ssid_wifi = ssid_WiFi;
+        z->pass_wifi = pass_WiFi;
+    #endif
 
     z->isEnable[0] = isEnable_TemperatureIntern;
     z->isEnable[1] = isEnable_TemperatureExtern;

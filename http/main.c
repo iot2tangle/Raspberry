@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "config.h"
 #include "lib.h"
 #include "struct-device.h"
+#include "config.h"
+
 
 
 struct device dev;
