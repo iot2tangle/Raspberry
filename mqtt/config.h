@@ -7,7 +7,7 @@
 const char* id_name = "Raspi-MQTT";
 
 /* Broker Configuration */
-const char* endpoint = "mqtt.iot2tangle.link";  /* Broker address (MQTT), must NOT include 'http://xxx' or 'tcp://xxx' */
+const char* address = "mqtt.iot2tangle.link";  /* Broker address (MQTT), must NOT include 'http://xxx' or 'tcp://xxx' */
 int port = 8883;
 const char* topic = "iot2tangle";		/* MQTT topic */
 const char* user = "mqtti2t";			/* MQTT user */

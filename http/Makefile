@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS= -lwiringPi -lcurl -lm -I. -DRASPI -DSHELLPRINT -DHTTP
-DEPS = raspi3-4/basics.h raspi3-4/gpio/gpio.h raspi3-4/tIntern/tIntern.h raspi3-4/bme280/bme280.h raspi3-4/mpu6050/mpu6050.h raspi3-4/bh1750/bh1750.h raspi3-4/acoustic/acoustic.h raspi3-4/http-socket/http-socket.h
-OBJ = raspi3-4/basics.o raspi3-4/gpio/gpio.o raspi3-4/tIntern/tIntern.o raspi3-4/bme280/bme280.o raspi3-4/mpu6050/mpu6050.o raspi3-4/bh1750/bh1750.o raspi3-4/acoustic/acoustic.o raspi3-4/http-socket/http-socket.o main.o
+DEPS = core/raspi3-4/basics.h core/raspi3-4/peripherals/gpio/gpio.h core/raspi3-4/peripherals/gpio/i2c.h core/raspi3-4/peripherals/gpio/spi.h core/raspi3-4/sensors/internal/internal.h core/raspi3-4/sensors/bme280/bme280.h core/raspi3-4/sensors/mpu6050/mpu6050.h core/raspi3-4/sensors/bh1750/bh1750.h core/raspi3-4/sensors/acoustic/acoustic.h core/raspi3-4/protocols/http/http.h
+OBJ = core/raspi3-4/basics.o core/raspi3-4/peripherals/gpio/gpio.o core/raspi3-4/peripherals/i2c/i2c.o core/raspi3-4/peripherals/spi/spi.o core/raspi3-4/sensors/internal/internal.o core/raspi3-4/sensors/bme280/bme280.o core/raspi3-4/sensors/mpu6050/mpu6050.o core/raspi3-4/sensors/bh1750/bh1750.o core/raspi3-4/sensors/acoustic/acoustic.o core/raspi3-4/protocols/http/http.o main.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

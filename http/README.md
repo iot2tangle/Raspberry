@@ -101,10 +101,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 Make sure you also have the build dependencies installed, if not run:  
 
 ```
-sudo apt install build-essential  
-sudo apt install pkg-config  
-sudo apt install libssl-dev  
 sudo apt update
+sudo apt install build-essential pkg-config libssl-dev
 ```
 
 ## Installing the Streams Gateway
@@ -121,7 +119,7 @@ Navigate to the root of **Streams-http-gateway** directory and edit the **config
 
 ### Sending messages to the Tangle
 
-Run the Streams Gateway:  
+Run the Streams Gateway:
 
 ```
 cargo run --release  
@@ -137,7 +135,7 @@ Once started, the ***Channel Id*** will be displayed, and the gateway will be op
 
 ### Reading messages from the Tangle
 
-You can read the received messages directly from the "I2T Explorer": https://explorer.iot2tangle.io/ using the Channel Id printed by the Gateway in shell.   
+You can read the received messages directly from the "I2T Explorer": https://explorer.iot2tangle.io/ using the Channel Id printed by the Gateway in shell.
 
 ![I2T Explorer](https://i.postimg.cc/wTNf7dgp/Screenshot-from-2020-10-16-11-46-16.png)
 
