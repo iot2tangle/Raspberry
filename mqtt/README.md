@@ -108,14 +108,11 @@ Install Rust if you don't have it already. More info about Rust here https://www
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-Make sure you also have the build dependencies installed, if not run:  
+Make sure you also have the build dependencies installed, if not run:
 
 ```
-sudo apt install build-essential  
-sudo apt install pkg-config  
-sudo apt install libssl-dev 
-sudo apt install cmake
-sudo apt update  
+sudo apt update
+sudo apt install build-essential pkg-config libssl-dev cmake 
 ```
 
 ## Installing the Streams Gateway
@@ -130,7 +127,7 @@ Navigate to the root of **Streams-MQTT-gateway** directory and edit the **config
 
 ### Sending messages to the Tangle
 
-Run the Streams Gateway:  
+Run the Streams Gateway:
 
 ```
 cargo run --release  
@@ -146,7 +143,7 @@ Once started, the ***Channel Id*** will be displayed, and the gateway will be op
 
 ### Reading messages from the Tangle
 
-You can read the received messages directly from the "I2T Explorer": https://explorer.iot2tangle.io/ using the Channel Id printed by the Gateway in shell.   
+You can read the received messages directly from the "I2T Explorer": https://explorer.iot2tangle.io/ using the Channel Id printed by the Gateway in shell.
 
 ![I2T Explorer](https://i.postimg.cc/wTNf7dgp/Screenshot-from-2020-10-16-11-46-16.png)
 
