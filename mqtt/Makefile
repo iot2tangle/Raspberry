@@ -10,6 +10,7 @@ Raspi-MQTT: $(OBJ)
 	@echo "\nCompiling..."
 	$(CC) -o $@ $^ $(CFLAGS) 
 	@echo "\nCompiled Finished, now you can run your code with: '$ ./Raspi-MQTT'\n"
+	@$ find . -name "*.o" -type f -delete
 
 help:
 	@echo "\n'make' to compile"
