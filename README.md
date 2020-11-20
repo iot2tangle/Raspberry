@@ -20,5 +20,3 @@ This is the list of Sensors/Modules that you can connect and it will be recogniz
 ## Available connectivity
 - **[HTTP](https://github.com/iot2tangle/Raspberry/tree/main/http)** (Raspberry will send the sensors data through HTTP to **[I2T HTTP Gateway](https://github.com/iot2tangle/Streams-http-gateway)**)
 - **[MQTT](https://github.com/iot2tangle/Raspberry/tree/main/mqtt)** (Raspberry will send the sensors data through MQTT to **[I2T MQTT Gateway](https://github.com/iot2tangle/Streams-mqtt-gateway)**)
-
-
