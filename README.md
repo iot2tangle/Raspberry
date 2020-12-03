@@ -18,5 +18,7 @@ This is the list of Sensors/Modules that you can connect and it will be recogniz
 - Also, you can connect a ***Green LED*** that blink when the data is sent to the Tangle, and a ***Red LED*** that will Blink in a certain way when it detects certain errors (totally optional).
 
 ## Available connectivity
-- **[HTTP](https://github.com/iot2tangle/Raspberry/tree/main/http)** (Raspberry will send the sensors data through HTTP to **[I2T HTTP Gateway](https://github.com/iot2tangle/Streams-http-gateway)**)
-- **[MQTT](https://github.com/iot2tangle/Raspberry/tree/main/mqtt)** (Raspberry will send the sensors data through MQTT to **[I2T MQTT Gateway](https://github.com/iot2tangle/Streams-mqtt-gateway)**)
+- **[HTTP-sender](https://github.com/iot2tangle/Raspberry/tree/main/http-sender)** (Raspberry will send the sensors data through HTTP to **[I2T HTTP Gateway](https://github.com/iot2tangle/Streams-http-gateway)** or **[Keepy](https://github.com/iot2tangle/Keepy)**
+- **[MQTT-sender](https://github.com/iot2tangle/Raspberry/tree/main/mqtt-sender)** (Raspberry will send the sensors data through MQTT to **[I2T MQTT Gateway](https://github.com/iot2tangle/Streams-mqtt-gateway)**)
+- **[HTTP-receiver](https://github.com/iot2tangle/Raspberry/tree/main/http-receiver)** -- Raspberry will receive the sensors data through HTTP from **[Keepy](https://github.com/iot2tangle/Keepy)** and performs actions based on the data received (for now it is optimized only to work with Keepy).
+
