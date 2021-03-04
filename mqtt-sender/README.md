@@ -2,6 +2,8 @@
 
 The *Raspberry Pi* is a series of small single-board computers developed in the United Kingdom by the *Raspberry Pi Foundation*. Early on, the Raspberry Pi project leaned towards the promotion of teaching basic computer science in schools and in developing countries.
 
+This Repository contains the source code and the steps to follow to be able to make ***Raspberry PI3/4*** read sensor data and send it, in an organized way, to the **[Tangle](https://www.youtube.com/watch?v=ESF8UZM70wU) (DLT)** of the **[IOTA Network](https://www.iota.org/)** through the **[Streams](https://www.iota.org/solutions/streams)** layer.
+
 ## Setting up your Raspberry with the I2T Sensors Stack
 
 The following installation is done on **"Raspberry Pi OS"** (formerly Raspbian) and works for *Raspberry Pi 3* and *Raspberry Pi 4*.
@@ -50,7 +52,7 @@ Use the down arrow to select 5: *'Interfacing Options'*, again use the arrow and
 #### 3) Copy the repository to the local file system of your Raspberry.
 ```
 git clone https://github.com/iot2tangle/Raspberry.git
-cd Raspberry/mqtt
+cd Raspberry/mqtt-sender
 ```
 #### 4) Edit the file config.h
 
